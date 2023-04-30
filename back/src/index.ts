@@ -3,6 +3,8 @@ import http from "http";
 import session from 'express-session';
 import { Server, Socket } from "socket.io";
 import {Room} from "./room";
+import listenGame from "./gamesocket";
+import {Game} from "./game";
 
 export interface CustomSocket extends Socket {
     username?: string;
@@ -25,12 +27,13 @@ const io = new Server(server, {
 });
 
 const rooms: Room[] = [];
+const games: Game[] = [];
 
 io.on('connection', (socket : CustomSocket) => {
     console.log('User connected');
     socket.username = 'Anonymous';
 
-    socket.on('set-username', (username) => {
+    socket.on('set-username', (username :string) => {
         socket.username = username;
         console.log(`${socket.username} has joined the server`);
 
@@ -86,6 +89,12 @@ io.on('connection', (socket : CustomSocket) => {
         if (room && room.owner.socket.id === socket.id) {
             io.to(room.getId()).emit('start-game-success');
             console.log(`${socket.username} has started game in room ${room.getId()}`);
+
+            const game = new Game(room.getId(), room.players, io);
+            games.push(game);
+
+            listenGame(io, socket,games);
+
         }
     });
 
