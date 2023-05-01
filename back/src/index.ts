@@ -87,19 +87,18 @@ io.on('connection', (socket : CustomSocket) => {
         const room = rooms.find((r) => r.getId() === roomId);
 
         if (room && room.owner.socket.id === socket.id) {
-            io.to(room.getId()).emit('start-game-success');
+            io.to(room.getId()).emit('start-game-success', room.getId());
             console.log(`${socket.username} has started game in room ${room.getId()}`);
 
             const game = new Game(room.getId(), room.players, io);
             games.push(game);
 
-            listenGame(io, socket,games);
+            room.players.forEach((player) => {
+                listenGame(io, player.socket, game);
+            });
 
         }
     });
-
-
-
 
     socket.on('disconnect', () => {
         console.log(`${socket.username} has left the server`);

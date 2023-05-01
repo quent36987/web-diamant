@@ -32,8 +32,8 @@ function WaitingRoom(){
             console.log('room-update', room);
         });
 
-        socket.on('start-game-success', () => {
-            navigate(`/game/${params.id}`);
+        socket.on('start-game-success', (id) => {
+            navigate(`/game/${id}`);
         });
 
         if(params.id) {

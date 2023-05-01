@@ -1,7 +1,6 @@
 export enum EAction {
-    STAY = 0,
-    LEAVE = 1,
-    NONE = 2,
+    STAY = "stay",
+    LEAVE = "leave",
 }
 
 export class Player {
@@ -19,7 +18,7 @@ export class Player {
 
         this.money = 0;
 
-        this.action = EAction.NONE;
+        this.action = EAction.LEAVE;
         this.isInHome = false;
     }
 

@@ -30,7 +30,6 @@ function Home() {
             navigate('/room');
         });
 
-
     }, [socket]);
 
     return (

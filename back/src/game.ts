@@ -4,7 +4,7 @@ import {Card, ECardType} from "./card";
 import {Server} from "socket.io";
 
 function initCard_shuffle(): Card[]{
-    const cards = [];
+    const cards : Card[] = [];
     const config = [
         {
             type: ECardType.DANGER,
@@ -47,7 +47,7 @@ function initCard_shuffle(): Card[]{
     //shuffle
     for (let i = cards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        const tmp = cards[i];
+        const tmp : Card = cards[i];
         cards[i] = cards[j];
         cards[j] = tmp;
     }
@@ -58,17 +58,15 @@ function initCard_shuffle(): Card[]{
 }
 
 export enum RoundType {
-    START = 0,
-    CARD = 1,
-    RECAP = 2,
-    END = 2,
+    START = "start",
+    CARD = "card",
+    END = "end",
 }
 
 export const ROUND_DURATION = {
-    [RoundType.START]: 5,
+    [RoundType.START]: 15,
     [RoundType.CARD]: 10,
-    [RoundType.RECAP]: 5,
-    [RoundType.END]: 5,
+    [RoundType.END]: 15,
 }
 
 export class Game {
@@ -83,13 +81,16 @@ export class Game {
     constructor(id: string, users: IUser[], io: Server) {
         this.id = id;
 
-        this.players = users.map((u) => new Player(u.socket.username, u.socket.id));
+        this.players = users.map((u) => new Player(u.socket?.username ?? 'ano', u.socket.id));
 
-        this.initRound();
+        this.cardsInGame = [];
+        this.cards = [];
 
         this.roundType = RoundType.START;
+        this.nextRoundStart = new Date();
         this.caveCount = 0;
 
+        this.initRound();
         playGame(this,io)
     }
 
@@ -127,9 +128,18 @@ export class Game {
 
     public setNewCard() : boolean {
         const newCards = this.cards.pop();
+
+        if (!newCards)
+        {
+            this.roundType = RoundType.END;
+            this.putAllPlayerInHome();
+
+            return true;
+        }
+
         newCards.splitMoney(this.getPlayerInGame.length);
 
-        if (this.cardsInGame.find((c) => c.type === newCards.type && c.value === newCards.value)){
+        if (newCards.type == ECardType.DANGER &&  this.cardsInGame.find((c) => c.type === newCards.type && c.value === newCards.value)){
             this.cardsInGame.push(newCards);
             this.roundType = RoundType.END;
             this.putAllPlayerInHome();
@@ -141,36 +151,56 @@ export class Game {
         return false;
     }
 
+    get copy() {
+        return {
+            id: this.id,
+            players: this.players,
+            cardsInGame: this.cardsInGame,
+            roundType: this.roundType,
+            nextRoundStart: this.nextRoundStart,
+            caveCount: this.caveCount,
+        }
+    }
+
 
 
 
 
 }
-function playGame(game: Game,io: Server,){
-    const time = new Date();
+
+function playGame(game: Game,io: Server){
+    const date = new Date();
+
     const duration = ROUND_DURATION[game.roundType];
 
-    const newDate = new Date(time.getTime() + duration * 1000);
+    const newDate = new Date(date.getTime() + duration * 1000);
+
+    console.log("next round at", newDate.toISOString(),date.toISOString());
 
     game.nextRoundStart = newDate;
 
-    io.to(game.id).emit("game-update", game);
+    // FIXME: send juste good information to client
+    io.to(game.id).emit("game-update", game.copy);
 
 
-    setTimeout(() => {
+    const timout = setTimeout(() => {
 
         switch (game.roundType) {
             case RoundType.START:
-                playStart(game)
+                playStart(game);
+                break;
             case RoundType.CARD:
-                playCard(game)
+                playCard(game);
+                break;
             case RoundType.END:
-                playEnd(game)
+                if(playEnd(game))
+                    return;
+                break;
         }
 
         playGame(game,io);
 
-    }, newDate.getTime() - time.getTime());
+    }, newDate.getTime() - date.getTime());
 }
 
 function playStart(game: Game){
@@ -203,11 +233,12 @@ function playCard(game: Game){
     }
 }
 
-function playEnd(game: Game){
+function playEnd(game: Game): boolean{
     if(game.caveCount === 3)
     {
         // TODO: end game
         console.log("end game")
+        return true;
     }
 
     game.caveCount++;
@@ -216,4 +247,6 @@ function playEnd(game: Game){
 
     game.cardsInGame = [];
     game.initRound();
+
+    return false;
 }

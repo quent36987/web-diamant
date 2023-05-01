@@ -1,7 +1,7 @@
 export enum ECardType {
-    DANGER = 0,
-    SPLITER = 1,
-    FIRSTAID = 2,
+    DANGER = "danger",
+    SPLITER = "spliter",
+    FIRSTAID = "firstaid",
 }
 
 export class Card {
@@ -16,6 +16,9 @@ export class Card {
         this.id = id;
         this.type = type;
         this.value = value;
+
+        this.valuePerPlayer = 0;
+        this.valueLeft = 0;
     }
 
     splitMoney(nbPlayers: number) {
@@ -41,7 +44,7 @@ export class Card {
             return perPLayer + left
         }
 
-        if (this.type === ECardType.FIRSTAID && nbPlayers === 0) {
+        if (this.type === ECardType.FIRSTAID && nbPlayers === 1) {
             this.valueLeft = 0;
             return this.value;
         }
