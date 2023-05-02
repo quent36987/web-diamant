@@ -5,38 +5,38 @@ import {Server} from "socket.io";
 
 function initCard_shuffle(): Card[]{
     const cards : Card[] = [];
-    const config = [
-        {
+    // 15 DANGER cards [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5]
+    // 5 FIRSTAID cards [5,7,8,10,12]
+    // 15 SPLITER cards [1-5,5,7,7,9,11,11,13-15,17]
+
+    const config = [];
+
+    // DANGER
+    for (let i = 1; i <= 5; i++) {
+        config.push({
             type: ECardType.DANGER,
-            value: 1,
-            count: 3
-        },
-        {
-            type: ECardType.DANGER,
-            value: 2,
-            count: 3
-        },
-        {
-            type: ECardType.SPLITER,
-            value: 10,
+            value: i,
             count: 3,
-        },
-        {
-            type: ECardType.SPLITER,
-            value: 7,
-            count: 3,
-        },
-        {
+        });
+    }
+
+    // FIRSTAID
+    [5, 7, 8, 10, 12].forEach((v) => {
+        config.push({
             type: ECardType.FIRSTAID,
-            value: 10,
-            count: 3,
-        },
-        {
-            type: ECardType.FIRSTAID,
-            value: 7,
-            count: 3,
-        }
-    ];
+            value: v,
+            count: 1,
+        });
+    });
+
+    // SPLITER
+    [1, 2, 3, 4, 5, 5, 7, 7, 9, 11, 11, 13, 14, 15, 17].forEach((v) => {
+        config.push({
+            type: ECardType.SPLITER,
+            value: v,
+            count: 1,
+        });
+    });
 
     config.forEach((c) => {
         for (let i = 0; i < c.count; i++) {
@@ -60,13 +60,17 @@ function initCard_shuffle(): Card[]{
 export enum RoundType {
     START = "start",
     CARD = "card",
-    END = "end",
+    END_LEAVE = "end-leave",
+    END_DANGER = "end-danger",
+    FINISH = "end",
 }
 
 export const ROUND_DURATION = {
     [RoundType.START]: 15,
     [RoundType.CARD]: 10,
-    [RoundType.END]: 15,
+    [RoundType.FINISH]: 15,
+    [RoundType.END_LEAVE]: 5,
+    [RoundType.END_DANGER]: 5,
 }
 
 export class Game {
@@ -131,7 +135,7 @@ export class Game {
 
         if (!newCards)
         {
-            this.roundType = RoundType.END;
+            this.roundType = RoundType.FINISH;
             this.putAllPlayerInHome();
 
             return true;
@@ -141,7 +145,7 @@ export class Game {
 
         if (newCards.type == ECardType.DANGER &&  this.cardsInGame.find((c) => c.type === newCards.type && c.value === newCards.value)){
             this.cardsInGame.push(newCards);
-            this.roundType = RoundType.END;
+            this.roundType = RoundType.END_DANGER;
             this.putAllPlayerInHome();
 
             return true;
@@ -192,8 +196,10 @@ function playGame(game: Game,io: Server){
             case RoundType.CARD:
                 playCard(game);
                 break;
-            case RoundType.END:
-                if(playEnd(game))
+            case RoundType.FINISH:
+            case RoundType.END_DANGER:
+                case RoundType.END_LEAVE:
+                if (playEnd(game))
                     return;
                 break;
         }
@@ -225,7 +231,7 @@ function playCard(game: Game){
 
     if(game.getPlayerInGame.length == 0)
     {
-        game.roundType = RoundType.END;
+        game.roundType = RoundType.END_LEAVE;
     }
     else
     {
@@ -236,8 +242,7 @@ function playCard(game: Game){
 function playEnd(game: Game): boolean{
     if(game.caveCount === 3)
     {
-        // TODO: end game
-        console.log("end game")
+        game.roundType = RoundType.FINISH;
         return true;
     }
 

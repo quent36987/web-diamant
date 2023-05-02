@@ -4,6 +4,7 @@
     top: 0;
 
     width: 100%;
+    height: 100%;
 
     display: flex;
     flex-direction: column;
@@ -12,15 +13,33 @@
 
     overflow: hidden;
 
-    margin-bottom: var(--spacing-s);
+    backdrop-filter: blur(10px);
 }
 
 .my-toast {
-    margin-top: var(--spacing-s);
+    margin: var(--spacing-s);
 
-    z-index: 5;
+    z-index: 10;
     animation: fadeinout 0.5s linear forwards;
     opacity: 0;
+}
+
+.my-toast-header {
+    margin: var(--spacing-s);
+    width: 100%;
+}
+
+.my-toast-body {
+    margin: var(--spacing-s);
+    width: 100%;
+}
+
+.my-toast-close{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: var(--spacing-s);
+    cursor: pointer;
 }
 
 @keyframes fadeinout {

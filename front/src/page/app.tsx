@@ -10,11 +10,11 @@ import serpentPng from '../assets/serpent.png';
 import { ICard, IGame, IPlayer } from '../interface/interface';
 import { EAction, ECardType } from '../interface/enum';
 import { useToast } from '../componant/toast';
-import { Scoreboard } from '../componant/recap-score';
+import { Scoreboard } from '../componant/scoreboard';
 
 
 
-
+// TODO: utils/cardImage.ts
 function getImage(card: ICard) {
     switch (card.type) {
         case ECardType.DANGER:
@@ -71,21 +71,24 @@ function Game() {
             return;
         }
 
-        socket.on('game-update', (game: IGame) => {
-            console.log('game-update', game);
-            setGame(game)
+        socket.on('game-update', (newGame: IGame) => {
+
+            // get type and change actio => :)
+
+            console.log('game-update', newGame);
+            setGame(newGame)
 
             const now = new Date();
-            const nextRoundStart = new Date(game.nextRoundStart);
+            const nextRoundStart = new Date(newGame.nextRoundStart);
             const diff = nextRoundStart.getTime() - now.getTime();
             const seconds = Math.floor(diff / 1000);
             setClock(seconds)
 
-            setPlayer(game.players.find((player) => player.socketId === socket.id));
+            setPlayer(newGame.players.find((player) => player.socketId === socket.id));
 
-            setPlayerInGame(game.players.filter((player) => !player.isInHome).length);
+            setPlayerInGame(newGame.players.filter((player) => !player.isInHome).length);
 
-            setTempMoney(temMoney(game));
+            setTempMoney(temMoney(newGame));
 
             console.log('clock', clock,seconds);
         });
@@ -97,10 +100,10 @@ function Game() {
 
     }, [params.id]);
 
-    const openScoreboard = () => {
+    const openScoreboard = (titre: string,oldGame : IGame | null = null) => {
         toast.open({
-            titre: 'Scoreboard',
-            component: Scoreboard(game)
+            titre,
+            component: Scoreboard(game,oldGame)
         });
     }
 
@@ -109,7 +112,7 @@ function Game() {
 
             <div className="header">
                 <Countdown count={clock} />
-                <div onClick={openScoreboard}>💎 {player?.money ?? 0}</div>
+                <div onClick={() => openScoreboard('Scoreboard')}>💎 {player?.money ?? 0}</div>
             </div>
 
             <div className="card">

@@ -6,7 +6,9 @@ export enum EAction {
 export enum RoundType {
     START = "start",
     CARD = "card",
-    END = "end",
+    END_LEAVE = "end-leave",
+    END_DANGER = "end-danger",
+    FINISH = "end",
 }
 
 export enum ECardType {

@@ -21,7 +21,7 @@ const Toast = (props: IProps): JSX.Element => {
                 </div>
             </div>
 
-            <div>
+            <div className="my-toast-body">
                 {props.alert.component}
             </div>
         </div>
