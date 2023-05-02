@@ -4,13 +4,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppState } from '../componant/Context';
 
-interface IUser {
-    username: string;
-}
-
 interface IRoom {
-    players: IUser[];
-    owner: IUser;
+    players: string[];
+    owner: string;
     id: string;
 }
 
@@ -47,11 +43,11 @@ function WaitingRoom(){
         <div>
             <h1>Waiting Room</h1>
             <h2>Room: {room?.id}</h2>
-            <h2>Owner: {room?.owner.username}</h2>
+            <h2>Owner: {room?.owner}</h2>
             <h2>Players:</h2>
             <ul>
                 {room?.players.map((player, index) => {
-                    return <li key={index}>{player.username}
+                    return <li key={index}>{player}
                     </li>
                 })}
             </ul>

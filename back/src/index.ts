@@ -33,7 +33,7 @@ io.on('connection', (socket : CustomSocket) => {
     console.log('User connected');
     socket.username = 'Anonymous';
 
-    socket.on('set-username', (username :string) => {
+    socket.on('set-username', (username : string) => {
         socket.username = username;
         console.log(`${socket.username} has joined the server`);
 

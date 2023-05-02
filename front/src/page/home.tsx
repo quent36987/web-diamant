@@ -15,7 +15,7 @@ function Home() {
 
     const handleUsernameSubmit = () => {
         console.log(username);
-        socket.emit('set-username', { username });
+        socket.emit('set-username', username);
     }
 
     useEffect(() => {

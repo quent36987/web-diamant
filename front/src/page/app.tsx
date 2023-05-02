@@ -7,52 +7,13 @@ import cavePng from '../assets/cave.png';
 import araigneePng from '../assets/araigne.png';
 import pikePng from '../assets/pike.png';
 import serpentPng from '../assets/serpent.png';
+import { ICard, IGame, IPlayer } from '../interface/interface';
+import { EAction, ECardType } from '../interface/enum';
+import { useToast } from '../componant/toast';
+import { Scoreboard } from '../componant/recap-score';
 
 
-enum EAction {
-    STAY = "stay",
-    LEAVE = "leave",
-}
 
-enum RoundType {
-    START = "start",
-    CARD = "card",
-    END = "end",
-}
-
-enum ECardType {
-    DANGER = "danger",
-    SPLITER = "spliter",
-    FIRSTAID = "firstaid",
-}
-
-interface ICard {
-    id: number;
-    type: ECardType;
-    value: number
-
-    valuePerPlayer: number;
-    valueLeft: number;
-}
-
-interface IPlayer {
-    username: string;
-    socketId: string;
-
-    money: number;
-
-    action: EAction;
-    isInHome: boolean;
-}
-
-interface IGame {
-    players: IPlayer[];
-    id: string;
-    cardsInGame: ICard[];
-    roundType: RoundType;
-    nextRoundStart: Date;
-    caveCount: number;
-}
 
 function getImage(card: ICard) {
     switch (card.type) {
@@ -79,7 +40,7 @@ function getImage(card: ICard) {
 
 function Game() {
     const [game, setGame] = useState<IGame>(null);
-    const [clock, setClock] = useState(10);
+    const [clock, setClock] = useState(0);
     const [playerInGame, setPlayerInGame] = useState(0);
     const [player, setPlayer] = useState<IPlayer>(null);
     const [tempMoney, setTempMoney] = useState(0);
@@ -87,6 +48,7 @@ function Game() {
     const {socket} = AppState();
     const navigate = useNavigate();
     const params = useParams();
+    const toast = useToast();
 
     const handleAction = (action: EAction) => {
         console.log('game-action', action);
@@ -135,12 +97,19 @@ function Game() {
 
     }, [params.id]);
 
+    const openScoreboard = () => {
+        toast.open({
+            titre: 'Scoreboard',
+            component: Scoreboard(game)
+        });
+    }
+
     return (
         <div className="flex-col game-page">
 
             <div className="header">
-                {Countdown(clock)}
-                <div>💎 {player?.money ?? 0}</div>
+                <Countdown count={clock} />
+                <div onClick={openScoreboard}>💎 {player?.money ?? 0}</div>
             </div>
 
             <div className="card">
@@ -176,8 +145,6 @@ function Game() {
                         <div className="submit-button" onClick={() => handleAction(EAction.LEAVE)}>Leave</div>
                     </>
                 }
-
-
             </div>
         </div>
     );

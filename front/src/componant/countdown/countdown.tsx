@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./countdown.css";
 
-function Countdown(count: number) {
-    const [seconds, setSeconds] = useState(count);
+
+interface IProps {
+    count: number;
+}
+
+function Countdown(props: IProps) {
+    const [seconds, setSeconds] = useState(0);
+
+    useEffect(() => {
+        setSeconds(props.count);
+    }, [props.count]);
 
     useEffect(() => {
 
