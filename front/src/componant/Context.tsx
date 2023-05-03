@@ -17,7 +17,9 @@ const Context = ({ children }): JSX.Element => {
 
     useEffect(() => {
         if (socket === null) {
-            setSocket(io('localhost:3005'));
+            setSocket(io('https://dps.epita.local',{
+                path: '/socket.io'
+            }));
             console.log('socket', socket);
         }
     }, []);

@@ -1,9 +1,9 @@
 import React from 'react';
 import './gamePage.css';
-import { getImage } from '../utils/cardImage';
 import { Countdown } from '../componant/countdown/countdown';
 import { ICard, IPlayer } from '../interface/interface';
 import { EAction, RoundType } from '../interface/enum';
+import { Cards } from '../componant/cards/cards';
 
 interface IProps {
     timer: number;
@@ -57,22 +57,21 @@ const GamePage = ({ timer,launch, diamonds, players, cards, handleAction, typeRo
             {players.map((player, index) => (
                     <div key={index} className="player-row">
                 <span className="flex-2">{player.username}</span>
-                <span className="flex-1">{player.isInHome ? "🏠" : " "}</span>
+                <span className="flex-1">{player.isInHome ? "🏠" : "🚶"}</span>
                         <span className="player-row-diamont">{diff(player)}</span>
                     </div>
             ))}
         </div>
+
     <div className="game-board">
-        {cards.map((card, index) => (
-                <div key={index} className="card">
-                    <div className="image-wrapper">
-                    <img  src={getImage(card)} alt="cave"/>
-                </div></div>
-))}
+        <Cards cards={cards} />
     </div>
+
+            <div className="flex-1 game-board-padding" />
+
     <footer className="game-footer">
         {message() !== null ?
-            <div className="game-footer-message">message()</div> : <>
+            <div className="game-footer-message">{message()}</div> : <>
         <button className="stay-button" onClick={() => handleAction(EAction.STAY)}>Rester</button>
         <button className="leave-button"
                 onClick={() => handleAction(EAction.LEAVE)}

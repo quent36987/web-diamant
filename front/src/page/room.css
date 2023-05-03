@@ -15,17 +15,24 @@
     animation: fadeIn 1s ease-in-out;
 }
 
+.create-game-button{
+    margin-bottom: 20px;
+}
+
 .create-game-button,
 .join-game-button {
-    height: 44px;
+
     background-color: #61dafb;
     font-size: 18px;
     color: white;
     border: none;
     cursor: pointer;
-    margin-bottom: 20px;
+
     animation: fadeIn 1s ease-in-out 0.5s;
     animation-fill-mode: both;
+    font-family:  'Lato', sans-serif;
+    padding: var(--spacing-s) var(--spacing-m);
+    border-radius: var(--spacing-xs);
 }
 
 .join-game {
@@ -39,11 +46,12 @@
 
 .game-code-input {
     width: 80px;
-    height: 44px;
     font-size: 18px;
-    padding-left: 10px;
     margin-right: 10px;
-    box-sizing: border-box;
+    font-family:  'Lato', sans-serif;
+    animation: fadeIn 1s ease-in-out 0.5s;
+    padding: var(--spacing-s) var(--spacing-m);
+    border-radius: var(--spacing-xs);
 }
 
 

@@ -33,7 +33,7 @@ const Application = (): JSX.Element => {
                         {pages.map((page, i) => (
                             <Route
                                 key={`page-${i}`}
-                                path={`/${page.path}`}
+                                path={`game${page.path}`}
                                 element={page.element}
                             />
                         ))}

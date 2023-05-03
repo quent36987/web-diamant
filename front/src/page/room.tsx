@@ -27,7 +27,7 @@ function Room() {
     useEffect(() => {
         socket.on('join-room-success', (id) => {
             console.log('Joined room successfully!');
-            navigate(`/waiting-room/${id}`);
+            navigate(`/game/waiting-room/${id}`);
         });
     });
 

@@ -95,7 +95,7 @@ function Home() {
 
         socket.on('set-username-success', ():void => {
             setUser(username);
-            navigate('/room');
+            navigate('/game/room');
         });
 
     }, [socket]);

@@ -35,7 +35,9 @@
 }
 
 .start-game-button {
-    height: 40px;
+    padding: var(--spacing-s) var(--spacing-m);
+    border-radius: var(--spacing-xs);
+    font-family:  'Lato', sans-serif;
     background-color: #61dafb;
     font-size: 18px;
     color: white;

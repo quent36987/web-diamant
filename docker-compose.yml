@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+    react:
+        container_name: react
+        build: ./front
+        ports:
+            - '3000:80'
+        networks:
+            - react-network
+        restart: unless-stopped
+    node-server:
+        container_name: node-server
+        build: ./back
+        networks:
+            - react-network
+        restart: unless-stopped
+    apache-oidc:
+        build: ./apache
+        networks:
+            - react-network
+        ports:
+            - "80:80"
+            - "443:443"
+        environment:
+            DOMAIN: ${DOMAIN}
+
+networks:
+    react-network:
+
+
+

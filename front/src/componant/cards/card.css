@@ -1,0 +1,65 @@
+
+.new-card {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    animation: newCardAnimation 1.5s forwards;
+}
+
+.card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-number-top-right,
+.card-number-bottom-left,
+.card-number-center {
+    font-family: "Times New Roman", Times, serif; /* police ancienne */
+    color: white;
+}
+
+.card-number-top-right {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+}
+
+.card-number-bottom-left {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    font-size: 12px;
+}
+
+.card-number-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px; /* taille du texte plus grande */
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes newCardAnimation {
+    0% {
+        transform: translateY(0%) translateX(0%) scale(2) rotateY(180deg);
+        opacity: 0;
+    }
+    40% {
+        transform: translateY(0%) translateX(0%) scale(1) rotateY(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0%) translateX(0%) scale(1) rotateY(0);
+        opacity: 1;
+    }
+}
+
+

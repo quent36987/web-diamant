@@ -5,6 +5,8 @@ import { Server, Socket } from "socket.io";
 import {Room} from "./room";
 import listenGame from "./gamesocket";
 import {Game} from "./game";
+//cors
+import cors from 'cors';
 
 export interface CustomSocket extends Socket {
     username?: string;
@@ -19,6 +21,8 @@ app.use(session({
     saveUninitialized: true,
     cookie: { secure: false },
 }));
+
+app.use(cors());
 
 const io = new Server(server, {
     cors: {

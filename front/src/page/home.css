@@ -41,6 +41,7 @@
     animation: fadeIn 1s ease-in-out 1s;
     animation-fill-mode: both;
     margin-bottom: var(--spacing-xxl);
+    font-family:  'Lato', sans-serif;
 }
 
 @keyframes fadeIn {

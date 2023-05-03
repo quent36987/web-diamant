@@ -32,7 +32,7 @@ function WaitingRoom(){
         });
 
         socket.on('start-game-success', (id) => {
-            navigate(`/game/${id}`);
+            navigate(`/game/game/${id}`);
         });
 
         if(params.id) {

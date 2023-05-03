@@ -66,11 +66,11 @@ export enum RoundType {
 }
 
 export const ROUND_DURATION = {
-    [RoundType.START]: 15,
+    [RoundType.START]: 5,
     [RoundType.CARD]: 10,
-    [RoundType.FINISH]: 15,
-    [RoundType.END_LEAVE]: 5,
-    [RoundType.END_DANGER]: 5,
+    [RoundType.FINISH]: 10,
+    [RoundType.END_LEAVE]: 7,
+    [RoundType.END_DANGER]: 7,
 }
 
 export class Game {

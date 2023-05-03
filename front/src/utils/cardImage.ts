@@ -1,9 +1,14 @@
 import { ICard } from '../interface/interface';
 import { ECardType } from '../interface/enum';
+
 import serpentPng from '../assets/serpent.png';
 import araigneePng from '../assets/araigne.png';
 import pikePng from '../assets/pike.png';
 import cavePng from '../assets/cave.png';
+import pierrePng from '../assets/pierre.png';
+import lavePng from '../assets/lave.png';
+import plitPng from '../assets/plit.png';
+import puiePng from '../assets/puie.png';
 
 function getImage(card: ICard) {
     switch (card.type) {
@@ -15,12 +20,16 @@ function getImage(card: ICard) {
                     return araigneePng;
                 case 3:
                     return pikePng;
+                case 4:
+                    return  lavePng;
+                case 5:
+                    return pierrePng;
             }
             break;
         case ECardType.SPLITER:
-            return cavePng;
+            return plitPng;
         case ECardType.FIRSTAID:
-            return cavePng;
+            return puiePng;
         default:
             return cavePng;
     }
