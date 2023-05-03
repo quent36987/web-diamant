@@ -4,6 +4,7 @@ import "./countdown.css";
 
 interface IProps {
     count: number;
+    launch: boolean;
 }
 
 function Countdown(props: IProps) {
@@ -11,7 +12,7 @@ function Countdown(props: IProps) {
 
     useEffect(() => {
         setSeconds(props.count);
-    }, [props.count]);
+    }, [props.count, props.launch]);
 
     useEffect(() => {
 

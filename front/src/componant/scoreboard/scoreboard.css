@@ -12,12 +12,20 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  gap: var(--spacing-s);
 }
 
-scoreboard-body-item-title {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+.scoreboard-body-item-title-1 {
+  text-align: center;
+  flex: 3;
+}
+
+.scoreboard-body-item-title-2 {
+  text-align: center;
+  flex: 1;
+}
+
+.scoreboard-body-item-title-3 {
+  text-align: center;
+  flex: 1;
 }

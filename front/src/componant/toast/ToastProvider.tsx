@@ -4,7 +4,7 @@ import { ToastContext } from './ToastContext';
 import { Toast } from './Toast';
 import { IAlert, IAlertProps } from './interfaces';
 import { generateUEID } from '../../utils/maths';
-import { debugLog, errorLog, infoLog } from '../../utils/logger';
+import { debugLog } from '../../utils/logger';
 
 // eslint-disable-next-line react/prop-types
 export const ToastProvider = ({ children }): JSX.Element => {
@@ -19,14 +19,18 @@ export const ToastProvider = ({ children }): JSX.Element => {
         setToasts((currentToasts) => currentToasts.filter((toast) => toast.id !== id));
     };
 
-    const contextValue = useMemo(() => ({ open }), []);
+    const closeFirst = (): void => {
+        setToasts((currentToasts) => currentToasts.slice(1));
+    }
+
+    const contextValue = useMemo(() => ({ open, closeFirst }), []);
 
     return (
         <ToastContext.Provider value={contextValue}>
-            <div className="toasts-wrapper">
-                {toasts.map((toast) => (
-                    <Toast key={toast.id} alert={toast} close={() => close(toast.id)} />
-                ))}
+            <div className="toasts-wrapper" onClick={closeFirst}>
+                {toasts.length > 0 &&
+                    <Toast key={toasts[0].id} alert={toasts[0]} close={() => close(toasts[0].id)} />
+                }
             </div>
             {children}
         </ToastContext.Provider>

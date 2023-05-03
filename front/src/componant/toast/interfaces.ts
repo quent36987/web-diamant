@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export interface IAlertProps {
     titre: string;
-    component: JSX.Element;
+    component?: JSX.Element;
 }
 
 export interface IAlert extends IAlertProps {
@@ -19,6 +19,7 @@ const IAlertType = {
 export interface IToast {
     open: (alert: IAlertProps) => void;
     close: (id: number) => void;
+    closeFirst: () => void;
 }
 
 export { IAlertType };

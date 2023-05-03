@@ -29,7 +29,7 @@ const Application = (): JSX.Element => {
     return (
         <Router>
             <div id="app" className="width-100 height-100">
-                    <Routes>
+                    <Routes >
                         {pages.map((page, i) => (
                             <Route
                                 key={`page-${i}`}
