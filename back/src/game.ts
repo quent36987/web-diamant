@@ -156,6 +156,9 @@ export class Game {
     }
 
     get copy() {
+        // add tempMoney
+        const tempMoney = this.cardsInGame.reduce((acc, c) => acc + c.valuePerPlayer, 0);
+
         return {
             id: this.id,
             players: this.players,
@@ -163,6 +166,7 @@ export class Game {
             roundType: this.roundType,
             nextRoundStart: this.nextRoundStart,
             caveCount: this.caveCount,
+            tempMoney,
         }
     }
 
@@ -186,6 +190,9 @@ function playGame(game: Game,io: Server){
     // FIXME: send juste good information to client
     io.to(game.id).emit("game-update", game.copy);
 
+    game.players.forEach((p) => {
+        p.setAddMoneyNull();
+    });
 
     const timout = setTimeout(() => {
 

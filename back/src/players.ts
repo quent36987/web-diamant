@@ -9,6 +9,9 @@ export class Player {
 
     money: number;
 
+    newMoney: null | number;
+    tempMoney: number;
+
     action: EAction;
     isInHome: boolean;
 
@@ -17,6 +20,8 @@ export class Player {
         this.socketId = socketId;
 
         this.money = 0;
+        this.newMoney = null;
+        this.tempMoney = 0;
 
         this.action = EAction.LEAVE;
         this.isInHome = false;
@@ -31,6 +36,11 @@ export class Player {
 
     addMoney(money: number) {
         this.money += money;
+        this.newMoney = money;
+    }
+
+    setAddMoneyNull() {
+        this.newMoney = null;
     }
 
     quitHome() {
@@ -39,6 +49,15 @@ export class Player {
 
     returnHome() {
         this.isInHome = true;
+    }
+
+    copy() {
+        return {
+            username: this.username,
+            money: this.money,
+            action: this.action,
+            isInHome: this.isInHome,
+        }
     }
 
 

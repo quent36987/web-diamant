@@ -1,0 +1,55 @@
+.main-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #282c34;
+    font-family: Arial, sans-serif;
+}
+
+.main-page-title {
+    font-size: 48px;
+    color: white;
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.username-input {
+    width: 80%;
+    height: 40px;
+    font-size: 18px;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease-in-out 0.5s;
+    animation-fill-mode: both;
+    outline: none;
+}
+
+.username-input:focus {
+    border: 2px solid #61dafb; /* Ajoute une bordure pour indiquer le focus */
+}
+
+.play-button {
+    width: 80%;
+    height: 40px;
+    background-color: #61dafb;
+    font-size: 18px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    animation: fadeIn 1s ease-in-out 1s;
+    animation-fill-mode: both;
+    margin-bottom: var(--spacing-xxl);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

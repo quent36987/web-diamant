@@ -1,8 +1,9 @@
 
-// Create Room or Join Room
+// FIXME: Lobby pluotto room
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppState } from '../componant/Context';
+import './room.css';
 
 function Room() {
     const [room, setRoom] = useState('');
@@ -31,11 +32,24 @@ function Room() {
     });
 
     return (
-        <div>
-            <h1>Set your room</h1>
-            <input type="text" value={room} onChange={handleRoomChange} />
-            <button onClick={handleJoinRoom}>Join Room</button>
-            <button onClick={handleCreateRoom}>Create Room</button>
+        <div className="game-lobby">
+            <h2 className="subtitle">Lobby du jeu</h2>
+            <button className="create-game-button" onClick={handleCreateRoom}>
+                Créer une partie
+            </button>
+            <div className="join-game">
+                <input
+                    className="game-code-input"
+                    type="text"
+                    placeholder="Code"
+                    value={room}
+                    onChange={handleRoomChange}
+                />
+
+                <button className="join-game-button" onClick={handleJoinRoom}>
+                    Rejoindre
+                </button>
+            </div>
         </div>
     );
 }

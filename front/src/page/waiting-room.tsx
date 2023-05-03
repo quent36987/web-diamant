@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppState } from '../componant/Context';
+import './waiting-room.css';
 
 interface IRoom {
     players: string[];
@@ -15,6 +16,7 @@ function WaitingRoom(){
     const {socket} = AppState();
     const navigate = useNavigate();
     const params = useParams();
+    const [isCreator, setIsCreator] = useState(false);
 
     const handleStartGame = () => {
         socket.emit('start-game', params.id);
@@ -25,6 +27,7 @@ function WaitingRoom(){
         // {room : JSON.stringify(room)}
         socket.on('room-update', (room: IRoom) => {
             setRoom(room);
+            setIsCreator(room.owner === socket.id);
             console.log('room-update', room);
         });
 
@@ -40,18 +43,23 @@ function WaitingRoom(){
     }, [params.id]);
 
     return (
-        <div>
-            <h1>Waiting Room</h1>
-            <h2>Room: {room?.id}</h2>
-            <h2>Owner: {room?.owner}</h2>
-            <h2>Players:</h2>
-            <ul>
-                {room?.players.map((player, index) => {
-                    return <li key={index}>{player}
-                    </li>
-                })}
-            </ul>
-            <button onClick={handleStartGame}>Start Game</button>
+        <div className="waiting-room">
+            <h2 className="waiting-room-subtitle">Attente d'autres joueurs
+                <span className="dots"></span></h2>
+            <p className="game-code">Code de la partie : {params?.id ?? 'xxxx'}</p>
+            <div className="player-list">
+                <h3>Joueurs :</h3>
+                <ul>
+                    {room && room.players.map((player, index) => (
+                        <li key={index}>{player}</li>
+                    ))}
+                </ul>
+            </div>
+            {isCreator && (
+                <button className="start-game-button" onClick={handleStartGame}>
+                    Lancer la partie
+                </button>
+            )}
         </div>
     );
 

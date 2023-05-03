@@ -1,0 +1,75 @@
+.waiting-room {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #282c34;
+    font-family: Arial, sans-serif;
+
+}
+
+.waiting-room-subtitle {
+    font-size: 7vw;
+    color: white;
+    margin-bottom: 20px;
+
+}
+
+.game-code {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.waiting-room > .player-list {
+    font-size: 18px;
+    color: white;
+    margin-bottom: var(--spacing-xxl);
+}
+
+.waiting-room > .player-list ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+.start-game-button {
+    height: 40px;
+    background-color: #61dafb;
+    font-size: 18px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+@keyframes dots {
+    0% {
+        content: '.';
+    }
+    33% {
+        content: '..';
+    }
+    66% {
+        content: '...';
+    }
+    100% {
+        content: '';
+    }
+}
+
+.dots {
+    display: inline-block;
+    animation: dots 1.5s steps(4, end) infinite;
+    animation-delay: 1s; /* Ajoutez cette ligne */
+
+}
+
+.dots::after {
+    content: '';
+    animation: dots 1.5s steps(4, end) infinite;
+}
+
+
+

@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { AppState } from '../componant/Context';
 import { emit } from '../utils/socket';
 import { useToast } from '../componant/toast';
-import { Scoreboard } from '../componant/scoreboard/scoreboard';
-import { EAction, RoundType } from '../interface/enum';
+import { ECardType } from '../interface/enum';
+import './home.css';
+import GamePage from './gamePage';
+import { ICard } from '../interface/interface';
 
 function Home() {
     const [username, setUsername] = useState('');
@@ -18,26 +20,70 @@ function Home() {
     }
 
     const handleUsernameSubmit = () : void => {
-        toast.open({
-            titre: 'Scoreboard',
-            component: Scoreboard({
-                "id": "p8g36i",
-                "players": [
-                    {
-                        "username": "oui",
-                        "socketId": "SWnLdyM7Muxc_Z-wAAAB",
-                        "money": 0,
-                        "action": EAction.LEAVE,
-                        "isInHome": false
-                    }
-                ],
-                "cardsInGame": [
-                ],
-                "roundType": RoundType.FINISH,
-                "nextRoundStart": new Date(),
-                "caveCount": 0
-            },null)
-        })
+        // toast.open({
+        //     titre: 'Des joueur ont quitté la partie',
+        //     component: Scoreboard({
+        //         "id": "p8g36i",
+        //         "players": [
+        //             {
+        //                 "username": "oui",
+        //                 "socketId": "SWnLdyM7Muxc_Z-wAAAB",
+        //                 "money": 0,
+        //                 "action": EAction.LEAVE,
+        //                 "isInHome": false
+        //             },
+        //             {
+        //                 "username": "oui",
+        //                 "socketId": "SWnLdyM7Muxc_Z-wAAAB",
+        //                 "money": 4,
+        //                 "action": EAction.LEAVE,
+        //                 "isInHome": true
+        //             },
+        //             {
+        //                 "username": "oui",
+        //                 "socketId": "SWnLdyM7Muxc_Z-wAAAB",
+        //                 "money": 2,
+        //                 "action": EAction.LEAVE,
+        //                 "isInHome": true
+        //             }
+        //         ],
+        //         "cardsInGame": [
+        //         ],
+        //         "roundType": RoundType.FINISH,
+        //         "nextRoundStart": new Date(),
+        //         "caveCount": 0
+        //     },{
+        //         "id": "p8g36i",
+        //         "players": [
+        //             {
+        //                 "username": "oui",
+        //                 "socketId": "SWnLdyM7Muxc_Z-wAAAB",
+        //                 "money": 0,
+        //                 "action": EAction.LEAVE,
+        //                 "isInHome": false
+        //             },
+        //             {
+        //                 "username": "oui",
+        //                 "socketId": "SWnLdyM7Muxc_Z-wAAAB",
+        //                 "money": 2,
+        //                 "action": EAction.LEAVE,
+        //                 "isInHome": false
+        //             },
+        //             {
+        //                 "username": "oui",
+        //                 "socketId": "SWnLdyM7Muxc_Z-wAAAB",
+        //                 "money": 2,
+        //                 "action": EAction.LEAVE,
+        //                 "isInHome": false
+        //             }
+        //         ],
+        //         "cardsInGame": [
+        //         ],
+        //         "roundType": RoundType.FINISH,
+        //         "nextRoundStart": new Date(),
+        //         "caveCount": 0
+        //     })
+        // })
 
         emit(socket,'set-username', username);
     }
@@ -54,11 +100,20 @@ function Home() {
 
     }, [socket]);
 
+
     return (
-        <div>
-            <h1>Set your username</h1>
-            <input type="text" value={username} onChange={handleUsernameChange} />
-            <button onClick={handleUsernameSubmit}>Submit</button>
+        <div className="main-page">
+            <h1 className="main-page-title">DIAMANT</h1>
+            <input
+                className="username-input"
+                type="text"
+                placeholder="Entrez votre nom d'utilisateur"
+                value={username}
+                onChange={handleUsernameChange}
+            />
+            <button className="play-button" onClick={handleUsernameSubmit}>
+                PLAY
+            </button>
         </div>
     );
 }

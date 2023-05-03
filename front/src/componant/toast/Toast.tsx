@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const Toast = (props: IProps): JSX.Element => {
-    useTimeout(props.close, 3000);
+    useTimeout(props.close, 30000);
 
     return (
         <div className="my-toast">

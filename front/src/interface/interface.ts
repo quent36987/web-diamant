@@ -13,6 +13,7 @@ export interface IPlayer {
     username: string;
     socketId: string;
 
+    newMoney: number | null;
     money: number;
 
     action: EAction;
@@ -26,4 +27,5 @@ export interface IGame {
     roundType: RoundType;
     nextRoundStart: Date;
     caveCount: number;
+    tempMoney: number;
 }

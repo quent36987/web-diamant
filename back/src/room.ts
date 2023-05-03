@@ -18,11 +18,13 @@ export class Room {
     constructor(owner: IUser) {
         this.players = [owner];
         this.owner = owner;
-        this.id = Math.random().toString(36).substring(7);
+        // id is a random digicode with 4 digits
+        this.id = "0000";
+        this.setRandomId();
     }
 
     setRandomId() {
-        this.id = Math.random().toString(36).substring(7);
+        this.id = Math.floor(Math.random() * 10000).toString();
     }
 
     addPlayer(player: IUser) {
@@ -48,7 +50,7 @@ export class Room {
     getCompact() {
         return {
             players: this.players.map((p) => ( p.socket.username)),
-            owner:  this.owner.socket.username,
+            owner:  this.owner.socket.id,
             id: this.id,
         };
     }
