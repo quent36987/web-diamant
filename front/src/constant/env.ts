@@ -1,5 +1,5 @@
-const SERVER_URL = 'http://localhost:8080';
+const DOMAIN = process.env.REACT_APP_DOMAIN;
 
 const LOGGER = true;
 
-export { SERVER_URL,LOGGER };
+export { DOMAIN,LOGGER };

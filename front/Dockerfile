@@ -7,6 +7,7 @@ COPY package-lock.json ./
 RUN npm ci --silent
 RUN npm install --only=dev
 COPY . ./
+ENV NODE_ENV=local
 RUN npm run build
 
 # production environment
