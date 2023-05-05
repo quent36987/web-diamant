@@ -1,6 +1,7 @@
 export enum EAction {
     STAY = "stay",
     LEAVE = "leave",
+    NONE = "none",
 }
 
 export enum RoundType {

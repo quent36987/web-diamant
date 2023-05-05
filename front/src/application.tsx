@@ -4,23 +4,24 @@ import { Home } from './page/home';
 import { Room } from './page/room';
 import { WaitingRoom } from './page/waiting-room';
 import Game from './page/app';
+import { path } from './constant/router';
 
 const Application = (): JSX.Element => {
     const pages: Array<{ path: string; element: JSX.Element }> = [
         {
-            path: `/`,
+            path: path.home,
             element: <Home />
         },
         {
-            path: `/room`,
+            path: path.room,
             element: <Room />
         },
         {
-            path: `/waiting-room/:id`,
+            path: `${path.waiting_room}/:id`,
             element: <WaitingRoom />
         },
         {
-            path: `/game/:id`,
+            path: `${path.game}/:id`,
             element: <Game />
         }
 
@@ -33,7 +34,7 @@ const Application = (): JSX.Element => {
                         {pages.map((page, i) => (
                             <Route
                                 key={`page-${i}`}
-                                path={`game${page.path}`}
+                                path={`${page.path}`}
                                 element={page.element}
                             />
                         ))}

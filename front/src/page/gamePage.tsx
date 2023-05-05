@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './gamePage.css';
 import { Countdown } from '../componant/countdown/countdown';
 import { ICard, IPlayer } from '../interface/interface';
@@ -8,7 +8,7 @@ import { Cards } from '../componant/cards/cards';
 interface IProps {
     timer: number;
     launch: boolean;
-    diamonds: number;
+    player: IPlayer | null;
     players: IPlayer[];
     cards: ICard[];
     handleAction: (EAction) => void;
@@ -16,7 +16,9 @@ interface IProps {
     tempMoney: number;
 }
 
-const GamePage = ({ timer,launch, diamonds, players, cards, handleAction, typeRound, tempMoney  }: IProps) => {
+const GamePage = ({ timer,launch, player, players, cards, handleAction, typeRound, tempMoney  }: IProps) => {
+
+    const [action, setAction] = useState<EAction>(player?.action ?? EAction.NONE);
 
     const message = (): string | null =>
     {
@@ -32,6 +34,11 @@ const GamePage = ({ timer,launch, diamonds, players, cards, handleAction, typeRo
             default:
                 return null;
         }
+    }
+
+    const handleActionWrapper = (action: EAction) => {
+        setAction(action);
+        handleAction(action);
     }
 
     const diff = (player :IPlayer): string =>
@@ -50,7 +57,7 @@ const GamePage = ({ timer,launch, diamonds, players, cards, handleAction, typeRo
             <Countdown count={timer} launch={launch} />
         </span>
             <span className="diamonds">
-        {diamonds} 💎
+        {player?.money ?? 0} 💎
         </span>
         </header>
         <div className="player-list">
@@ -72,11 +79,23 @@ const GamePage = ({ timer,launch, diamonds, players, cards, handleAction, typeRo
     <footer className="game-footer">
         {message() !== null ?
             <div className="game-footer-message">{message()}</div> : <>
-        <button className="stay-button" onClick={() => handleAction(EAction.STAY)}>Rester</button>
-        <button className="leave-button"
-                onClick={() => handleAction(EAction.LEAVE)}
+
+
+        <button
+            className={`stay-button ${action === EAction.STAY ? 'stay-button-active' : ''}`}
+            onClick={() => handleActionWrapper(EAction.STAY)}
         >
-            Partir</button></>
+            Rester
+        </button>
+
+        <button
+            className={`leave-button ${action === EAction.LEAVE ? 'leave-button-active' : ''}`}
+            onClick={() => handleActionWrapper(EAction.LEAVE)}
+        >
+            Partir
+        </button>
+
+            </>
         }
         </footer>
         </div>

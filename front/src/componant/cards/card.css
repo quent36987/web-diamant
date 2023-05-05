@@ -41,8 +41,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px; /* taille du texte plus grande */
+    transform: translate(-45%, -50%);
+    font-size: 22px; /* taille du texte plus grande */
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }

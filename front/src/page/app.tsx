@@ -1,28 +1,29 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppState } from '../componant/Context';
-import { useNavigate, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import './game.css'
-import { Countdown } from '../componant/countdown/countdown';
-import cavePng from '../assets/cave.png';
 import { ICard, IGame, IPlayer } from '../interface/interface';
 import { EAction, ECardType, RoundType } from '../interface/enum';
-import { useToast } from '../componant/toast';
-import { Scoreboard } from '../componant/scoreboard/scoreboard';
-import { getImage } from '../utils/cardImage';
 import GamePage from './gamePage';
 import { emit } from '../utils/socket';
+import { ScoreboardPopup } from '../componant/scoreboard/scoreboard';
 
 function Game() {
     const [game, setGame] = useState<IGame>(null);
     const [clock, setClock] = useState(0);
     const [launchClock, setLaunchClock] = useState(false);
     const [player, setPlayer] = useState<IPlayer>(null);
+    const [showScoreboard, setShowScoreboard] = useState(false);
 
     const {socket} = AppState();
     const params = useParams();
 
     const handleAction = (action: EAction) => {
         emit(socket, 'game-action', params.id, action);
+    }
+
+    const closeScoreboard = () => {
+        setShowScoreboard(false);
     }
 
     useEffect(() => {
@@ -38,9 +39,17 @@ function Game() {
 
         setPlayer(game.players.find((player) => player.socketId === socket.id));
 
-        console.log('clock', clock,seconds);
+        }, [game]);
 
-    }, [game]);
+    useEffect(() => {
+        if (game == null)
+            return;
+
+        if (game.roundType === RoundType.START && game.caveCount > 0) {
+            setShowScoreboard(true);
+        }
+
+    }, [game?.roundType]);
 
 
     useEffect(() => {
@@ -63,16 +72,22 @@ function Game() {
 
 
     return (
+        <div onClick={closeScoreboard} className="height-100">
        <GamePage
            timer={clock}
            launch={launchClock}
-           diamonds={player?.money ?? 0}
+           player={player ?? null}
            players={game?.players ?? []}
            cards={game?.cardsInGame ?? []}
            handleAction={handleAction}
            typeRound={game?.roundType ?? RoundType.START}
            tempMoney={game?.tempMoney ?? 0}
        />
+
+        {showScoreboard && (
+            <ScoreboardPopup game={game} close={closeScoreboard}/>
+        )}
+        </div>
     );
 }
 

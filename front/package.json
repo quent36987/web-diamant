@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Server for the game",
   "main": "index.js",
-  "homepage": "/game",
   "scripts": {
     "start": "node node_modules/react-scripts/bin/react-scripts start",
     "build": "react-scripts build",

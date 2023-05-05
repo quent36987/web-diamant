@@ -66,11 +66,11 @@ export enum RoundType {
 }
 
 export const ROUND_DURATION = {
-    [RoundType.START]: 5,
+    [RoundType.START]: 7,
     [RoundType.CARD]: 10,
     [RoundType.FINISH]: 10,
-    [RoundType.END_LEAVE]: 7,
-    [RoundType.END_DANGER]: 7,
+    [RoundType.END_LEAVE]: 5,
+    [RoundType.END_DANGER]: 5,
 }
 
 export class Game {
@@ -247,7 +247,7 @@ function playCard(game: Game){
 }
 
 function playEnd(game: Game): boolean{
-    if(game.caveCount === 3)
+    if(game.caveCount === 5)
     {
         game.roundType = RoundType.FINISH;
         return true;
