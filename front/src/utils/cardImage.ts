@@ -5,34 +5,38 @@ import serpentPng from '../assets/serpent.png';
 import araigneePng from '../assets/araigne.png';
 import pikePng from '../assets/pike.png';
 import cavePng from '../assets/cave.png';
-import pierrePng from '../assets/pierre.png';
-import lavePng from '../assets/lave.png';
-import plitPng from '../assets/plit.png';
-import puiePng from '../assets/puie.png';
+import firePng from '../assets/fire.png';
+import eboulementPng from '../assets/eboulement.png';
+import puitsPng from '../assets/puits.png';
+import minePng from '../assets/mine_diamants.png';
 
 function getImage(card: ICard) {
     switch (card.type) {
         case ECardType.DANGER:
-            switch (card.value) {
-                case 1:
-                    return serpentPng;
-                case 2:
-                    return araigneePng;
-                case 3:
-                    return pikePng;
-                case 4:
-                    return  lavePng;
-                case 5:
-                    return pierrePng;
-            }
+            getDangerImage(card.value)
             break;
         case ECardType.SPLITER:
-            return plitPng;
+            return minePng;
         case ECardType.FIRSTAID:
-            return puiePng;
+            return puitsPng;
         default:
             return cavePng;
     }
 }
 
-export { getImage}
+function getDangerImage(value: number) {
+    switch (value) {
+        case 1:
+            return serpentPng;
+        case 2:
+            return araigneePng;
+        case 3:
+            return pikePng;
+        case 4:
+            return  firePng;
+        case 5:
+            return eboulementPng;
+    }
+}
+
+export { getImage, getDangerImage}

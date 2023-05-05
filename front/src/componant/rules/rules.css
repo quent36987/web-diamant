@@ -1,0 +1,121 @@
+.rules-carousel {
+    width: 100%;
+    height: 100%;
+
+    background-color: #282c34;
+    font-family: 'Satisfy', cursive;
+
+    color: white;
+    font-size: 40px;
+}
+
+.rule-page {
+
+    box-sizing: border-box;
+    padding: 16px;
+
+    flex-direction: column;
+
+
+
+    color: white;
+}
+
+.highlighted {
+    color: white;
+    background-color: rgba(201, 171, 51, 0.51);
+    border-radius: 23px;
+    padding: 0px 10px;
+}
+
+.rule-content {
+    text-align: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+flex-direction: column;
+}
+
+.rulesPageContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    padding: var(--spacing-m);
+
+
+}
+
+.react-swipeable-view-container {
+    height: 100%;
+}
+
+
+.diamonds-rule2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 28px;
+
+}
+
+
+.button-rule4{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    background-color: #282c34;
+    padding: var(--spacing-s);
+}
+
+.image-danger-rule5{
+    width: 100%;
+
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    grid-gap: var(--spacing-s);
+    padding:  var(--spacing-l);
+}
+
+.wrapper-rules6{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--spacing-l);
+    margin-bottom: var(--spacing-l);
+}
+
+.image-rule6{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows:  min-content;
+
+    grid-gap: var(--spacing-s);
+    padding:  var(--spacing-s);
+    overflow-y: auto;
+}
+
+.image-rule6 > *:nth-child(2) {
+    grid-column: 3;
+}
+
+.image-rule6 > *:nth-child(1) {
+    grid-column: 2;
+}
+
+.wrapper-rules8{
+    width: 90%;
+    margin-bottom: var(--spacing-l);
+}

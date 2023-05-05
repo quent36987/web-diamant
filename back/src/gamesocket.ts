@@ -20,9 +20,6 @@ export default (io: Server, socket: CustomSocket, game : Game) => {
     socket.on("game-action", (gameId : string, action : EAction) => {
         console.log(`${socket.username} has requested action for game ${gameId}`);
 
-        // console.log('games', games.length,gameId)
-       // const game = games.find((g) => g.id === gameId);
-
         if (game) {
             console.log('action', action, socket.id)
             game.setPlayerAction(socket.id, action);

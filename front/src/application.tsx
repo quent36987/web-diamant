@@ -5,6 +5,7 @@ import { Room } from './page/room';
 import { WaitingRoom } from './page/waiting-room';
 import Game from './page/app';
 import { path } from './constant/router';
+import { RulesCarousel } from './componant/rules/Rules';
 
 const Application = (): JSX.Element => {
     const pages: Array<{ path: string; element: JSX.Element }> = [
@@ -23,8 +24,11 @@ const Application = (): JSX.Element => {
         {
             path: `${path.game}/:id`,
             element: <Game />
+        },
+        {
+            path: path.rules,
+            element: <RulesCarousel />
         }
-
     ];
 
     return (
