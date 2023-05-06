@@ -1,9 +1,13 @@
 # Build step
-FROM alpine:3.17.3 AS certbot
-RUN apk add --no-cache certbot
+FROM alpine:3.17.3 AS build
+RUN apk add --no-cache openssl
+COPY ./conf conf
+RUN openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.crt -days 365 -nodes -config conf
 
 # Package step
 FROM httpd:2.4-bullseye
+
+RUN apt-get update && apt-get install -y certbot && rm -rf /var/lib/apt/lists/*
 
 ## Install openidc module for httpd
 RUN apt-get update && apt-get install -y \
@@ -17,9 +21,6 @@ RUN sed -i \
         -e 's/^#\(LoadModule .*mod_socache_shmcb.so\)/\1/' \
         -e 's/^#\(LoadModule .*mod_rewrite.so\)/\1/' \
         conf/httpd.conf
-
-# Copy Certbot from the build stage
-COPY --from=certbot /usr/bin/certbot /usr/bin/certbot
 
 # Expose HTTP and HTTPS ports
 EXPOSE 80 443
