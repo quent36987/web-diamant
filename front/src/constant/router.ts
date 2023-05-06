@@ -1,9 +1,9 @@
 const path = {
-    home: '/',
-    room: '/room',
-    waiting_room: '/waiting-room',
-    game: '/game',
-    rules: '/rules'
+    home: '/game/',
+    room: '/game/room',
+    waiting_room: '/game/waiting-room',
+    game: '/game/game',
+    rules: '/game/rules'
 };
 
 export { path };

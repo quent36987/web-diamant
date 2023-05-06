@@ -10,23 +10,23 @@ import { RulesCarousel } from './componant/rules/Rules';
 const Application = (): JSX.Element => {
     const pages: Array<{ path: string; element: JSX.Element }> = [
         {
-            path: `/game${path.home}`,
+            path: `${path.home}`,
             element: <Home />
         },
         {
-            path: `/game${path.room}`,
+            path: `${path.room}`,
             element: <Room />
         },
         {
-            path: `/game${path.waiting_room}/:id`,
+            path: `${path.waiting_room}/:id`,
             element: <WaitingRoom />
         },
         {
-            path: `/game${path.game}/:id`,
+            path: `${path.game}/:id`,
             element: <Game />
         },
         {
-            path: `/game${path.rules}`,
+            path: `${path.rules}`,
             element: <RulesCarousel />
         }
     ];
