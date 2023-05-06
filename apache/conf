@@ -8,8 +8,8 @@ ST  = Rhone
 L   = Lyon
 O   = Somewhere
 OU  = R&D
-CN  = game.quentinou.ovh
+CN  = home.quentinou.ovh
 [req_ext]
 subjectAltName = @alt_names
 [alt_names]
-DNS.1 = game.quentinou.ovh
+DNS.1 = home.quentinou.ovh

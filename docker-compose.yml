@@ -24,6 +24,7 @@ services:
             - "443:443"
         environment:
             DOMAIN: ${DOMAIN}
+        restart: unless-stopped
 
 networks:
     react-network:

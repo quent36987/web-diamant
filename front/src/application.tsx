@@ -10,15 +10,15 @@ import { RulesCarousel } from './componant/rules/Rules';
 const Application = (): JSX.Element => {
     const pages: Array<{ path: string; element: JSX.Element }> = [
         {
-            path: path.home,
+            path: `/game${path.home}`,
             element: <Home />
         },
         {
-            path: path.room,
+            path: `/game${path.room}`,
             element: <Room />
         },
         {
-            path: `${path.waiting_room}/:id`,
+            path: `/game${path.waiting_room}/:id`,
             element: <WaitingRoom />
         },
         {
@@ -26,7 +26,7 @@ const Application = (): JSX.Element => {
             element: <Game />
         },
         {
-            path: path.rules,
+            path: `/game${path.rules}`,
             element: <RulesCarousel />
         }
     ];
@@ -36,7 +36,7 @@ const Application = (): JSX.Element => {
             <div id="app" className="width-100 height-100">
                 <Routes>
                     {pages.map((page, i) => (
-                        <Route key={`page-${i}`} path={`${page.path}`} element={page.element} />
+                        <Route key={`page-${i}`} path={`/game${page.path}`} element={page.element} />
                     ))}
                 </Routes>
             </div>
