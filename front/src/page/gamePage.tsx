@@ -75,7 +75,7 @@ const GamePage = ({
             <div className="player-list">
                 {players.map((player, index) => (
                     <div key={index} className="player-row">
-                        <span className="flex-2">{player.username}</span>
+                        <span className="flex-3">{player.username}</span>
                         <span className="flex-1">{player.isInHome ? '🏠' : '🚶'}</span>
                         <span className="player-row-diamont">{diff(player)}</span>
                     </div>
@@ -93,23 +93,21 @@ const GamePage = ({
                     <div className="game-footer-message">{message()}</div>
                 ) : (
                     <>
-                        <button
-                            className={`stay-button ${
-                                action === EAction.STAY ? 'stay-button-active' : ''
-                            }`}
-                            onClick={() => handleActionWrapper(EAction.STAY)}
-                        >
-                            Rester
-                        </button>
-
-                        <button
-                            className={`leave-button ${
-                                action === EAction.LEAVE ? 'leave-button-active' : ''
-                            }`}
-                            onClick={() => handleActionWrapper(EAction.LEAVE)}
-                        >
-                            Partir
-                        </button>
+                        {action === EAction.NONE ? (
+                            <>
+                                <button
+                                    className="stay-button"
+                                    onClick={() => handleActionWrapper(EAction.STAY)}>
+                                    Rester
+                                </button>
+                                <button
+                                    className="leave-button"
+                                    onClick={() => handleActionWrapper(EAction.LEAVE)}>
+                                    Partir
+                                </button>
+                                )
+                            </>
+                        ) : null}
                     </>
                 )}
             </footer>

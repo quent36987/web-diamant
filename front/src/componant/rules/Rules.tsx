@@ -48,9 +48,8 @@ const Rule3 = () => (
             Vous allez
             <br />
             participer à<span className="highlighted"> cinq explorations </span>
-            <br />
+
             afin
-            <br />
             <br />
             de récolter un <br />
             maximum de diamants.
@@ -66,17 +65,19 @@ const Rule4 = () => (
         </div>
 
         <div className="rule-content">
-            <p>
+            <div className="rule8">
+
                 A chaque étape (carte), vous choisirez entre{' '}
                 <span className="highlighted">rester</span> en exploration ou{' '}
                 <span className="highlighted">partir</span> pour retourner au camp.
                 <br />
                 <br />
+            </div>
                 <div className="rule5">
                     Lorsque vous rentrez au camp, les diamants que vous avez récupérés sont{' '}
                     <span className="highlighted">sauvegardés.</span>
                 </div>
-            </p>
+
         </div>
     </div>
 );
@@ -84,7 +85,7 @@ const Rule4 = () => (
 const Rule5 = () => (
     <div className="rulesPageContainer">
         <div className="rule-content">
-            <div className="">Cinq cartes danger :</div>
+            <div className="">Cinq cartes danger</div>
 
             <div className="image-danger-rule5">
                 <img src={getDangerImage(1)} alt="cave" width="30%" />
@@ -124,7 +125,7 @@ const CARDS_RULES_6: ICard[] = [
 const Rule6 = () => (
     <div className="rulesPageContainer">
         <div className="rule-content">
-            <div className="">Les cartes puits de diamants : </div>
+            <div className="">Les cartes puits de diamants</div>
 
             <div className="wrapper-rules6">
                 <div className="image-rule6">
@@ -165,7 +166,7 @@ const CARDS_RULES_7: ICard[] = [
 const Rule7 = () => (
     <div className="rulesPageContainer">
         <div className="rule-content">
-            <div className="">Les cartes ressources :</div>
+            <div className="">Les cartes ressources</div>
 
             <div className="wrapper-rules6">
                 <div className="image-rule6">
@@ -189,7 +190,7 @@ const Rule7 = () => (
 const Rule7Bis = () => (
     <div className="rulesPageContainer">
         <div className="rule-content">
-            <div className="">Les cartes ressources :</div>
+            <div className="">Les cartes ressources</div>
 
             <div className="wrapper-rules6">
                 <div className="image-rule6">
@@ -215,17 +216,17 @@ const Rule8 = () => (
             <div className="wrapper-rules8">
                 <div className="player-list">
                     <div className="player-row">
-                        <span className="flex-2">joueur 1</span>
+                        <span className="flex-3">joueur 1</span>
                         <span className="flex-1">🏠</span>
                         <span className="player-row-diamont"> </span>
                     </div>
                     <div className="player-row">
-                        <span className="flex-2">joueur 2</span>
+                        <span className="flex-3">joueur 2</span>
                         <span className="flex-1">🚶</span>
                         <span className="player-row-diamont"> 14⛏️</span>
                     </div>
                     <div className="player-row">
-                        <span className="flex-2">joueur 3</span>
+                        <span className="flex-3">joueur 3</span>
                         <span className="flex-1">🏠</span>
                         <span className="player-row-diamont">(+21💎)</span>
                     </div>
@@ -250,17 +251,17 @@ const Rule8Bis1 = () => (
             <div className="wrapper-rules8">
                 <div className="player-list">
                     <div className="player-row">
-                        <span className="flex-2">joueur 1</span>
+                        <span className="flex-3">joueur 1</span>
                         <span className="flex-1">🏠</span>
                         <span className="player-row-diamont"> </span>
                     </div>
                     <div className="player-row">
-                        <span className="flex-2">joueur 2</span>
+                        <span className="flex-3">joueur 2</span>
                         <span className="flex-1">🚶</span>
                         <span className="player-row-diamont"> 14⛏️</span>
                     </div>
                     <div className="player-row">
-                        <span className="flex-2">joueur 3</span>
+                        <span className="flex-3">joueur 3</span>
                         <span className="flex-1">🏠</span>
                         <span className="player-row-diamont">(+21💎)</span>
                     </div>
@@ -286,17 +287,17 @@ const Rule8Bis2 = () => (
             <div className="wrapper-rules8">
                 <div className="player-list">
                     <div className="player-row">
-                        <span className="flex-2">joueur 1</span>
+                        <span className="flex-3">joueur 1</span>
                         <span className="flex-1">🏠</span>
                         <span className="player-row-diamont"> </span>
                     </div>
                     <div className="player-row">
-                        <span className="flex-2">joueur 2</span>
+                        <span className="flex-3">joueur 2</span>
                         <span className="flex-1">🚶</span>
                         <span className="player-row-diamont"> 14⛏️</span>
                     </div>
                     <div className="player-row">
-                        <span className="flex-2">joueur 3</span>
+                        <span className="flex-3">joueur 3</span>
                         <span className="flex-1">🏠</span>
                         <span className="player-row-diamont">(+21💎)</span>
                     </div>

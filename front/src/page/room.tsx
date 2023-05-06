@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppState } from '../componant/Context';
 import './room.css';
 import { path } from '../constant/router';
+import { emit } from '../utils/socket';
 
 function Room() {
     const [room, setRoom] = useState('');
@@ -15,21 +16,25 @@ function Room() {
     };
 
     const handleJoinRoom = () => {
-        socket.emit('join-room', room);
-        console.log('join room');
+        emit(socket, 'join-room', room);
     };
 
     const handleCreateRoom = () => {
-        socket.emit('create-room');
-        console.log('create room');
+        emit(socket, 'create-room');
     };
+
+    useEffect(() => {
+        if (socket === null)
+            navigate(path.home);
+    }, [socket]);
 
     useEffect(() => {
         socket.on('join-room-success', (id) => {
             console.log('Joined room successfully!');
             navigate(`${path.waiting_room}/${id}`);
         });
-    });
+    }, [socket]);
+
 
     return (
         <div className="game-lobby">
@@ -49,6 +54,10 @@ function Room() {
                 <button className="join-game-button" onClick={handleJoinRoom}>
                     Rejoindre
                 </button>
+
+                <div className="rule-button" onClick={() => navigate(path.rules)}>
+                    {'voir les règles ->'}
+                </div>
             </div>
         </div>
     );

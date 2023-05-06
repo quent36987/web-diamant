@@ -19,7 +19,7 @@ const Cards = ({ cards, initialCard = false }: IProps): JSX.Element => {
             )}
 
             {cards.map((card, i) => (
-                <div className="new-card" key={`card-${i}`}>
+                <div className="new-card" key={`card-${i}-${card.type}`}>
                     <img src={getImage(card)} alt="cave" className="card-image" />
 
                     {card.type !== ECardType.DANGER && (

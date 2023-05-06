@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AppState } from '../componant/Context';
 import './waiting-room.css';
 import { path } from '../constant/router';
+import { emit } from '../utils/socket';
 
 interface IRoom {
     players: string[];
@@ -22,9 +23,9 @@ function WaitingRoom() {
         socket.emit('start-game', params.id);
     };
 
-    const onRulesClick = () => {
-        navigate(path.rules);
-    };
+    useEffect(() => {
+        if (socket === null) navigate(path.home);
+    }, [socket]);
 
     useEffect(() => {
         // {room : JSON.stringify(room)}
@@ -39,10 +40,11 @@ function WaitingRoom() {
         });
 
         if (params.id) {
-            socket.emit('room-info', params.id);
-            console.log('room-info');
+            emit(socket,'room-info', params.id);
         }
     }, [params.id]);
+
+
 
     return (
         <div className="waiting-room">
@@ -63,7 +65,7 @@ function WaitingRoom() {
                 </button>
             )}
 
-            <div className="rule-button" onClick={onRulesClick}>
+            <div className="rule-button" onClick={() => navigate(path.rules)}>
                 {'voir les règles ->'}
             </div>
         </div>

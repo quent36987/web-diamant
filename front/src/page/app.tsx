@@ -29,6 +29,10 @@ function Game() {
     };
 
     useEffect(() => {
+        if (socket === null) nagivate(path.home);
+    }, [socket]);
+
+    useEffect(() => {
         if (game == null) return;
 
         const now = new Date();
@@ -54,11 +58,6 @@ function Game() {
     }, [game?.roundType]);
 
     useEffect(() => {
-        if(socket === null)
-            nagivate(path.home);
-    }, [socket]);
-
-    useEffect(() => {
         if (socket === null) {
             return;
         }
@@ -69,8 +68,7 @@ function Game() {
         });
 
         if (params.id) {
-            socket.emit('game-info', params.id);
-            console.log('game-info');
+            emit(socket,'game-info', params.id);
         }
     }, [params.id]);
 

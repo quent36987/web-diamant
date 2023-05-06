@@ -5,6 +5,38 @@ import { AppState } from '../componant/Context';
 import { emit } from '../utils/socket';
 import './home.css';
 import { path } from '../constant/router';
+import { useSpring, animated, config } from 'react-spring';
+
+const AnimatedLetter = ({ letter }) => {
+    const animation = useSpring({
+        from: {
+            transform: `translate3d(${Math.random() * 100 - 50}vw, ${Math.random() * 100 - 50}vh, 0)`,
+        },
+        to: {
+            transform: 'translate3d(0, 0, 0)',
+        },
+        config: config.wobbly,
+    });
+
+    return (
+        <animated.span style={{ ...animation, position: 'relative', display: 'inline-block' }}>
+            {letter}
+        </animated.span>
+    );
+};
+
+const AnimatedTitle = () => {
+    const title = "DIAMANT";
+
+    return (
+        <h1 className="main-page-title" style={{ position: 'relative' }}>
+            {title.split('').map((letter, index) => (
+                <AnimatedLetter key={index} letter={letter} />
+            ))}
+        </h1>
+    );
+};
+
 
 function Home() {
     const [username, setUsername] = useState('');
@@ -35,10 +67,12 @@ function Home() {
         });
     }, [socket]);
 
+
+
     return (
         <div className="main-page">
-            <h1 className="main-page-title">DIAMANT</h1>
-
+            {/*<h1 className="main-page-title">DIAMANT</h1>*/}
+            <AnimatedTitle />
             <input
                 className="username-input"
                 type="text"
@@ -50,6 +84,10 @@ function Home() {
             <button className="play-button" onClick={handleUsernameSubmit}>
                 PLAY
             </button>
+
+            <div className="rule-button" onClick={() => navigate(path.rules)}>
+                {'voir les règles ->'}
+            </div>
         </div>
     );
 }

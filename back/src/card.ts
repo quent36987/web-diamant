@@ -23,7 +23,6 @@ export class Card {
 
     splitMoney(nbPlayers: number) {
         if (this.type === ECardType.SPLITER) {
-            // divide by nbPlayers (eclidiane division)
             this.valuePerPlayer = Math.floor(this.value / nbPlayers);
             this.valueLeft = this.value - (this.valuePerPlayer * nbPlayers);
         }
@@ -35,7 +34,6 @@ export class Card {
 
     public getMoneyPerPlayer(nbPlayers: number): number {
         if (this.type === ECardType.SPLITER) {
-            // divide by nbPlayers (eclidiane division)
             const perPLayer =  this.valuePerPlayer;
             const left = Math.floor(this.valueLeft / nbPlayers);
 
@@ -45,8 +43,9 @@ export class Card {
         }
 
         if (this.type === ECardType.FIRSTAID && nbPlayers === 1) {
+            const left = this.valueLeft;
             this.valueLeft = 0;
-            return this.value;
+            return left;
         }
 
         return 0;

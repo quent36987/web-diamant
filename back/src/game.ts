@@ -52,8 +52,6 @@ function initCard_shuffle(): Card[]{
         cards[j] = tmp;
     }
 
-    //console.log(cards);
-
     return cards;
 }
 
@@ -112,6 +110,10 @@ export class Game {
 
     getPlayer(socketId: string) {
         return this.players.find((p) => p.socketId === socketId);
+    }
+
+    removePlayer(socketId: string) {
+        this.players = this.players.filter((p) => p.socketId !== socketId);
     }
 
     setPlayerAction(socketId: string, action: EAction) {
@@ -230,18 +232,16 @@ export class Game {
             case RoundType.CARD:
                 playCard(this);
                 break;
-            case RoundType.FINISH:
             case RoundType.END_DANGER:
             case RoundType.END_LEAVE:
-                if (playEnd(this))
-                    return;
+                playEnd(this)
                 break;
+            case RoundType.FINISH:
+                return;
         }
 
         this.playGame();
     }
-
-
 
 }
 

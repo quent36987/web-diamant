@@ -37,6 +37,7 @@
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.11.0",
         "react-scripts": "^5.0.1",
+        "react-spring": "^9.7.1",
         "react-swipeable-views-react-18-fix": "^0.14.1",
         "socket.io-client": "^4.6.1",
         "web-vitals": "^3.3.1",

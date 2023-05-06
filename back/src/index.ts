@@ -106,13 +106,34 @@ io.on('connection', (socket : CustomSocket) => {
     socket.on('disconnect', () => {
         console.log(`${socket.username} has left the server`);
 
-        const room = rooms.find((r) => r.owner.socket.id === socket.id);
+        const player_rooms = rooms.filter((r) => r.getPlayers().find((p) => p.socket.id === socket.id));
 
-        if (room) {
+        player_rooms.forEach((room) => {
             room.removePlayer({socket});
             socket.to(room.getId()).emit('room-update', room.getCompact());
             console.log(`${socket.username} has left room ${room.getId()}`);
-        }
+        });
+
+        const player_games = games.filter((g) => g.players.find((p) => p.socketId === socket.id));
+
+        player_games.forEach((game) => {
+            game.removePlayer(socket.id);
+            console.log(`${socket.username} has left game ${game.id}`);
+        });
+
+        // suprimer les rooms vides
+        rooms.forEach((room) => {
+            if (room.getPlayersCount() === 0) {
+                rooms.splice(rooms.indexOf(room), 1);
+            }
+        });
+
+        // supprimer les games vides
+        games.forEach((game) => {
+            if (game.players.length === 0) {
+                games.splice(games.indexOf(game), 1);
+            }
+        });
     });
 });
 
