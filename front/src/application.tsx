@@ -22,7 +22,7 @@ const Application = (): JSX.Element => {
             element: <WaitingRoom />
         },
         {
-            path: `${path.game}/:id`,
+            path: `/game${path.game}/:id`,
             element: <Game />
         },
         {
@@ -36,7 +36,7 @@ const Application = (): JSX.Element => {
             <div id="app" className="width-100 height-100">
                 <Routes>
                     {pages.map((page, i) => (
-                        <Route key={`page-${i}`} path={`/game${page.path}`} element={page.element} />
+                        <Route key={`page-${i}`} path={`${page.path}`} element={page.element} />
                     ))}
                 </Routes>
             </div>

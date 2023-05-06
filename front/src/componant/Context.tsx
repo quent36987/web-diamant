@@ -19,7 +19,7 @@ const Context = ({ children }): JSX.Element => {
     useEffect(() => {
         if (socket === null) {
             setSocket(
-                io(`${DOMAIN}/game`, {
+                io(`${DOMAIN}`, {
                     path: '/socket.io'
                 })
             );
