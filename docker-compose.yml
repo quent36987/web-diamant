@@ -15,6 +15,7 @@ services:
         networks:
             - react-network
         restart: unless-stopped
+
     apache-oidc:
         build: ./apache
         networks:
@@ -24,10 +25,15 @@ services:
             - "443:443"
         environment:
             DOMAIN: ${DOMAIN}
+        volumes:
+            - letsencrypt_certs:/etc/letsencrypt
         restart: unless-stopped
 
 networks:
     react-network:
+
+volumes:
+    letsencrypt_certs:
 
 
 
