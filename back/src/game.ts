@@ -66,9 +66,9 @@ export enum RoundType {
 }
 
 export const ROUND_DURATION = {
-    [RoundType.START]: 7,
-    [RoundType.CARD]: 10,
-    [RoundType.FINISH]: 10,
+    [RoundType.START]: 10,
+    [RoundType.CARD]: 15,
+    [RoundType.FINISH]: 15,
     [RoundType.END_LEAVE]: 5,
     [RoundType.END_DANGER]: 5,
 }
@@ -81,6 +81,10 @@ export class Game {
     roundType: RoundType;
     nextRoundStart: Date;
     caveCount: number;
+    remainingPlayers = 0;
+    isPlaying = false;
+    timer: NodeJS.Timeout | null = null;
+    io: Server;
 
     constructor(id: string, users: IUser[], io: Server) {
         this.id = id;
@@ -93,9 +97,12 @@ export class Game {
         this.roundType = RoundType.START;
         this.nextRoundStart = new Date();
         this.caveCount = 0;
+        this.timer = null;
+        this.isPlaying = false;
+        this.io = io;
 
         this.initRound();
-        playGame(this,io)
+        this.playGame();
     }
 
     initRound() {
@@ -112,14 +119,20 @@ export class Game {
         if (player) {
             player.setAction(action);
         }
+
+        // find a player who is not in home and has not played yet
+        const playerNotInHome = this.players.find((p) => !p.isInHome && p.action == EAction.NONE);
+        if (!playerNotInHome) {
+            this.startNextRound();
+        }
     }
 
     getPlayerLeave(){
-        return this.players.filter((p) => p.action === EAction.LEAVE && p.isInHome == false);
+        return this.players.filter((p) => p.action !== EAction.STAY && !p.isInHome);
     }
 
     get getPlayerInGame(){
-        return this.players.filter((p) => p.isInHome == false);
+        return this.players.filter((p) => !p.isInHome);
     }
 
     putAllPlayerInHome(){
@@ -170,50 +183,66 @@ export class Game {
         }
     }
 
+    playGame(){
+        this.isPlaying = true;
+        const date = new Date();
+
+        const duration = ROUND_DURATION[this.roundType];
+
+        const newDate = new Date(date.getTime() + duration * 1000);
+
+        console.log("next round at", newDate.toISOString(),date.toISOString());
+
+        this.nextRoundStart = newDate;
+
+        this.players.forEach((p) => {
+            p.setAction(EAction.NONE);
+        });
+
+        // FIXME: send juste good information to client
+        this.io.to(this.id).emit("game-update", this.copy);
+
+        this.players.forEach((p) => {
+            p.setAddMoneyNull();
+        });
 
 
+        this.timer = setTimeout(() => {
+            this.startNextRound();
+        }, newDate.getTime() - date.getTime());
 
+        this.isPlaying = false;
+    }
 
-}
+    startNextRound() {
+        if (this.isPlaying)
+            return;
 
-function playGame(game: Game,io: Server){
-    const date = new Date();
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
 
-    const duration = ROUND_DURATION[game.roundType];
-
-    const newDate = new Date(date.getTime() + duration * 1000);
-
-    console.log("next round at", newDate.toISOString(),date.toISOString());
-
-    game.nextRoundStart = newDate;
-
-    // FIXME: send juste good information to client
-    io.to(game.id).emit("game-update", game.copy);
-
-    game.players.forEach((p) => {
-        p.setAddMoneyNull();
-    });
-
-    const timout = setTimeout(() => {
-
-        switch (game.roundType) {
+        switch (this.roundType) {
             case RoundType.START:
-                playStart(game);
+                playStart(this);
                 break;
             case RoundType.CARD:
-                playCard(game);
+                playCard(this);
                 break;
             case RoundType.FINISH:
             case RoundType.END_DANGER:
-                case RoundType.END_LEAVE:
-                if (playEnd(game))
+            case RoundType.END_LEAVE:
+                if (playEnd(this))
                     return;
                 break;
         }
 
-        playGame(game,io);
+        this.playGame();
+    }
 
-    }, newDate.getTime() - date.getTime());
+
+
 }
 
 function playStart(game: Game){

@@ -60,6 +60,8 @@ flex-direction: column;
     top: 0;
     right: 0;
     font-size: 28px;
+    display: flex;
+    margin: var(--spacing-s);
 
 }
 

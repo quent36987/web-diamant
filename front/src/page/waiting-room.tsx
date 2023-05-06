@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppState } from '../componant/Context';
 import './waiting-room.css';
+import { path } from '../constant/router';
 
 interface IRoom {
     players: string[];
@@ -32,7 +33,7 @@ function WaitingRoom(){
         });
 
         socket.on('start-game-success', (id) => {
-            navigate(`/game/game/${id}`);
+            navigate(`${path.game}/${id}`);
         });
 
         if(params.id) {

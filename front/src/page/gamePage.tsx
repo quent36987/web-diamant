@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './gamePage.css';
 import { Countdown } from '../componant/countdown/countdown';
 import { ICard, IPlayer } from '../interface/interface';
 import { EAction, RoundType } from '../interface/enum';
 import { Cards } from '../componant/cards/cards';
+import { useNavigate } from 'react-router-dom';
+import { path } from '../constant/router';
+import { getDiamantImage } from '../utils/cardImage';
 
 interface IProps {
     timer: number;
@@ -36,6 +39,10 @@ const GamePage = ({ timer,launch, player, players, cards, handleAction, typeRoun
         }
     }
 
+    useEffect(() => {
+        setAction(player?.action ?? EAction.NONE);
+    }, [player]);
+
     const handleActionWrapper = (action: EAction) => {
         setAction(action);
         handleAction(action);
@@ -57,8 +64,12 @@ const GamePage = ({ timer,launch, player, players, cards, handleAction, typeRoun
             <Countdown count={timer} launch={launch} />
         </span>
             <span className="diamonds">
-        {player?.money ?? 0} 💎
+        {player?.money ?? 0}
+
         </span>
+            <div className="diamonds-header">
+            <img src={getDiamantImage()} alt="cave" width={25}/>
+            </div>
         </header>
         <div className="player-list">
             {players.map((player, index) => (
@@ -71,7 +82,7 @@ const GamePage = ({ timer,launch, player, players, cards, handleAction, typeRoun
         </div>
 
     <div className="game-board">
-        <Cards cards={cards} />
+        <Cards cards={cards} initialCard={true} />
     </div>
 
             <div className="flex-1 game-board-padding" />

@@ -3,7 +3,7 @@ import SwipeableViews from 'react-swipeable-views-react-18-fix';
 import './rules.css';
 import { EAction, ECardType } from '../../interface/enum';
 import { Cards } from '../cards/cards';
-import { getDangerImage } from '../../utils/cardImage';
+import { getDangerImage, getDiamantImage } from '../../utils/cardImage';
 import { ICard, IPlayer } from '../../interface/interface';
 
 const Rule1 = () => (
@@ -23,11 +23,14 @@ const Rule1 = () => (
 const Rule2 = () => (
     <div className="rulesPageContainer">
          <div className="diamonds-rule2">
-           <span className="highlighted"> 45 💎</span>
+          45
+             <div className="diamonds-header">
+                 <img src={getDiamantImage()} alt="cave" width={25}/>
+             </div>
         </div>
 
         <div className="rule-content">
-            Le total <br/>de vos diamants<br/> récupérés<br/> se trouvent ici
+            Le total <br/>de vos diamants<br/> récupérés<br/> se trouve ici
         </div>
     </div>
 )
@@ -233,24 +236,10 @@ const RulesCarousel = () => {
         <RulePage text="Règle 2" />,
     ];
 
-    useEffect(() => {
-        // const timer = setTimeout(() => {
-        //     setCurrentIndex((prevIndex) => (prevIndex + 1) % rulePages.length);
-        // }, 100000);
-        //
-        // return () => {
-        //     clearTimeout(timer);
-       // };
-    }, [currentIndex, rulePages.length]);
 
-    const handleChangeIndex = (index) => {
-        setCurrentIndex(index);
-    };
 
     return (
         <SwipeableViews
-            index={currentIndex}
-            onChangeIndex={handleChangeIndex}
             className="rules-carousel"
 
         >

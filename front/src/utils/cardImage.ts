@@ -9,12 +9,21 @@ import firePng from '../assets/fire.png';
 import eboulementPng from '../assets/eboulement.png';
 import puitsPng from '../assets/puits.png';
 import minePng from '../assets/mine_diamants.png';
+import diamantPng from '../assets/diamant.png';
+
+
+function getCaveImage() {
+    return cavePng;
+}
+
+function getDiamantImage() {
+    return diamantPng;
+}
 
 function getImage(card: ICard) {
     switch (card.type) {
         case ECardType.DANGER:
-            getDangerImage(card.value)
-            break;
+            return getDangerImage(card.value);
         case ECardType.SPLITER:
             return minePng;
         case ECardType.FIRSTAID:
@@ -39,4 +48,4 @@ function getDangerImage(value: number) {
     }
 }
 
-export { getImage, getDangerImage}
+export { getImage, getDangerImage, getCaveImage,getDiamantImage}

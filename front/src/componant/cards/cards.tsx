@@ -1,18 +1,23 @@
 import React from 'react';
-import { getImage } from '../../utils/cardImage';
+import { getCaveImage, getDiamantImage, getImage } from '../../utils/cardImage';
 import { ICard } from '../../interface/interface';
 import './card.css';
 import { ECardType } from '../../interface/enum';
 
 interface IProps {
     cards: ICard[];
+    initialCard?: boolean;
 }
 
-const Cards = ({ cards } : IProps) : JSX.Element => {
+const Cards = ({ cards, initialCard = false } : IProps) : JSX.Element => {
 
     return ( <>
-        {cards.map((card, index) => (
-            <div className="new-card">
+        {initialCard && <div className="new-card" key={`card-init`}>
+            <img src={getCaveImage()} alt="cave" className="card-image" />
+        </div>}
+
+        {cards.map((card, i) => (
+            <div className="new-card" key={`card-${i}`}>
 
                 <img src={getImage(card)} alt="cave" className="card-image" />
 

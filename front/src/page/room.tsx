@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppState } from '../componant/Context';
 import './room.css';
+import { path } from '../constant/router';
 
 function Room() {
     const [room, setRoom] = useState('');
@@ -27,7 +28,7 @@ function Room() {
     useEffect(() => {
         socket.on('join-room-success', (id) => {
             console.log('Joined room successfully!');
-            navigate(`/game/waiting-room/${id}`);
+            navigate(`${path.waiting_room}/${id}`);
         });
     });
 

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { AppState } from '../componant/Context';
-import {  useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './game.css'
 import { ICard, IGame, IPlayer } from '../interface/interface';
 import { EAction, ECardType, RoundType } from '../interface/enum';
 import GamePage from './gamePage';
 import { emit } from '../utils/socket';
 import { ScoreboardPopup } from '../componant/scoreboard/scoreboard';
+import { path } from '../constant/router';
 
 function Game() {
     const [game, setGame] = useState<IGame>(null);
@@ -17,6 +18,7 @@ function Game() {
 
     const {socket} = AppState();
     const params = useParams();
+    const nagivate = useNavigate();
 
     const handleAction = (action: EAction) => {
         emit(socket, 'game-action', params.id, action);
@@ -49,8 +51,17 @@ function Game() {
             setShowScoreboard(true);
         }
 
+        if (game.roundType === RoundType.FINISH) {
+            setShowScoreboard(true);
+        }
+
     }, [game?.roundType]);
 
+    // TODO
+    // useEffect(() => {
+    //     if(socket === null)
+    //         nagivate(path.home);
+    // }, [socket]);
 
     useEffect(() => {
         if (socket === null) {

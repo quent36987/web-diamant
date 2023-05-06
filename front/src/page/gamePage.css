@@ -18,8 +18,13 @@
 }
 
 .diamonds {
-    font-family: "Montserrat", sans-serif;
+    font-family: 'Satisfy', cursive;
     font-weight: 600;
+    text-align: right;
+    flex: 1;
+}
+.diamonds-header{
+    margin-left: 5px;
 }
 
 .game-page > .player-list {

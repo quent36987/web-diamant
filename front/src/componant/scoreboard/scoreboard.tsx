@@ -2,6 +2,7 @@ import React from 'react';
 import './scoreboard.css';
 import { IGame } from '../../interface/interface';
 import { useTimeout } from '../../utils/useTimeout';
+import { RoundType } from '../../interface/enum';
 
 
 interface IProps {
@@ -10,7 +11,12 @@ interface IProps {
 }
 
 const ScoreboardPopup = ({ game, close } : IProps) => {
-    useTimeout(close, 5000);
+    let delay = 5000;
+
+    if (game.roundType === RoundType.FINISH)
+        delay = 15000;
+
+    useTimeout(close, delay);
 
     const players = game.players.sort((a, b) => b.money - a.money);
 

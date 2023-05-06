@@ -1,19 +1,6 @@
 fonctionnalités à ajouter :
-X popup score en fin de round
-X toogle sur les buttons stay et leave
-- timer un peu plus long mais avec si all choos pass :)
 - explication au début du jeu
-- image pour les cartes
-    - a lava flow, digital art
-    - a rockslide, digital art
-    - a well overflowing with diamonds and sparkling gems, digital art
-    - a wall in a cave with some small precious stone stuck in the stone, digital art
-    - a sparkling gemstone, digital art
-    - The word "diamond" written with precious stones, digital art
-X police un peu trop grande sur les carte au millieu
-- enlever le /game
-- path au propre avec var
-- username max 12caratère
+- username max 12caratère et pâs pareil que les autre
 - toast context, mettre au propre et utiliser pour message d'erreur et tt :)
 
 intern:
@@ -25,11 +12,3 @@ intern:
 
 des plus:
 - automatisation du build et deploiement sur vm :)
-
-
-skip mode ?
-- avant envoyer au joueurs, remettre action a none
-- quand recois action => set action tchec si tt les actions ont étaient recu ?
-  si oui  et que date next round et dans > 2sec, annule le timer et mettant la date next round a null puis la vrais truc)
-  => lautre timeout verif avan,t de play un rtound que le time na pas bouger comme ca pas de double round... (ptt verif a une meilleur tech)
-

@@ -29,6 +29,11 @@ function Home() {
             navigate(path.room);
         });
 
+        // TODO: handle disconnect
+        // socket.on('disconnect', () => {
+        //     console.log('disconnected');
+        //     navigate(path.home);
+        // });
     }, [socket]);
 
     return (
