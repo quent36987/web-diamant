@@ -1,4 +1,3 @@
-
 // see people in the room
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -12,17 +11,20 @@ interface IRoom {
     id: string;
 }
 
-function WaitingRoom(){
+function WaitingRoom() {
     const [room, setRoom] = useState<IRoom>(null);
-    const {socket} = AppState();
+    const { socket } = AppState();
     const navigate = useNavigate();
     const params = useParams();
     const [isCreator, setIsCreator] = useState(false);
 
     const handleStartGame = () => {
         socket.emit('start-game', params.id);
-    }
+    };
 
+    const onRulesClick = () => {
+        navigate(path.rules);
+    };
 
     useEffect(() => {
         // {room : JSON.stringify(room)}
@@ -36,24 +38,23 @@ function WaitingRoom(){
             navigate(`${path.game}/${id}`);
         });
 
-        if(params.id) {
+        if (params.id) {
             socket.emit('room-info', params.id);
             console.log('room-info');
         }
-
     }, [params.id]);
 
     return (
         <div className="waiting-room">
-            <h2 className="waiting-room-subtitle">Attente d'autres joueurs
-                <span className="dots"></span></h2>
+            <h2 className="waiting-room-subtitle">
+                Attente d'autres joueurs
+                <span className="dots"></span>
+            </h2>
             <p className="game-code">Code de la partie : {params?.id ?? 'xxxx'}</p>
             <div className="player-list">
                 <h3>Joueurs :</h3>
                 <ul>
-                    {room && room.players.map((player, index) => (
-                        <li key={index}>{player}</li>
-                    ))}
+                    {room && room.players.map((player, index) => <li key={index}>{player}</li>)}
                 </ul>
             </div>
             {isCreator && (
@@ -61,9 +62,12 @@ function WaitingRoom(){
                     Lancer la partie
                 </button>
             )}
+
+            <div className="rule-button" onClick={onRulesClick}>
+                {'voir les règles ->'}
+            </div>
         </div>
     );
-
 }
 
 export { WaitingRoom };

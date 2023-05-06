@@ -34,15 +34,11 @@ const Application = (): JSX.Element => {
     return (
         <Router>
             <div id="app" className="width-100 height-100">
-                    <Routes >
-                        {pages.map((page, i) => (
-                            <Route
-                                key={`page-${i}`}
-                                path={`${page.path}`}
-                                element={page.element}
-                            />
-                        ))}
-                    </Routes>
+                <Routes>
+                    {pages.map((page, i) => (
+                        <Route key={`page-${i}`} path={`${page.path}`} element={page.element} />
+                    ))}
+                </Routes>
             </div>
         </Router>
     );

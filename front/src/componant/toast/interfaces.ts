@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 
-
 export interface IAlertProps {
     titre: string;
     component?: JSX.Element;

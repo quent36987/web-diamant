@@ -3,7 +3,7 @@ const path = {
     room: '/room',
     waiting_room: '/waiting-room',
     game: '/game',
-    rules: '/rules',
-}
+    rules: '/rules'
+};
 
-export {path}
+export { path };

@@ -4,17 +4,15 @@ import { IGame } from '../../interface/interface';
 import { useTimeout } from '../../utils/useTimeout';
 import { RoundType } from '../../interface/enum';
 
-
 interface IProps {
-    game : IGame;
-    close : Function;
+    game: IGame;
+    close: Function;
 }
 
-const ScoreboardPopup = ({ game, close } : IProps) => {
+const ScoreboardPopup = ({ game, close }: IProps) => {
     let delay = 5000;
 
-    if (game.roundType === RoundType.FINISH)
-        delay = 15000;
+    if (game.roundType === RoundType.FINISH) delay = 15000;
 
     useTimeout(close, delay);
 
@@ -33,8 +31,6 @@ const ScoreboardPopup = ({ game, close } : IProps) => {
                         </div>
                     ))}
                 </div>
-
-
             </div>
         </div>
     );

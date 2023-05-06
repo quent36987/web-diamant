@@ -18,9 +18,11 @@ const Context = ({ children }): JSX.Element => {
 
     useEffect(() => {
         if (socket === null) {
-            setSocket(io(`${DOMAIN}`,{
-                path: '/socket.io'
-            }));
+            setSocket(
+                io(`${DOMAIN}`, {
+                    path: '/socket.io'
+                })
+            );
         }
     }, []);
 
@@ -30,7 +32,8 @@ const Context = ({ children }): JSX.Element => {
                 socket,
                 user,
                 setUser
-            }}>
+            }}
+        >
             {children}
         </app.Provider>
     );

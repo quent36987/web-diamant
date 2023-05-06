@@ -8,32 +8,31 @@ import { path } from '../constant/router';
 
 function Home() {
     const [username, setUsername] = useState('');
-    const {socket, setUser} = AppState();
+    const { socket, setUser } = AppState();
     const navigate = useNavigate();
 
     const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setUsername(event.target.value);
-    }
+    };
 
-    const handleUsernameSubmit = () : void => {
-        emit(socket,'set-username', username);
-    }
+    const handleUsernameSubmit = (): void => {
+        emit(socket, 'set-username', username);
+    };
 
     useEffect(() => {
-        if(socket == null) {
+        if (socket == null) {
             return;
         }
 
-        socket.on('set-username-success', ():void => {
+        socket.on('set-username-success', (): void => {
             setUser(username);
             navigate(path.room);
         });
 
-        // TODO: handle disconnect
-        // socket.on('disconnect', () => {
-        //     console.log('disconnected');
-        //     navigate(path.home);
-        // });
+        socket.on('disconnect', () => {
+            console.log('disconnected');
+            navigate(path.home);
+        });
     }, [socket]);
 
     return (

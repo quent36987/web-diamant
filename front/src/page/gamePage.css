@@ -23,7 +23,7 @@
     text-align: right;
     flex: 1;
 }
-.diamonds-header{
+.diamonds-header {
     margin-left: 5px;
 }
 
@@ -46,7 +46,7 @@
     border-bottom: none; /* Retirer la bordure du dernier joueur */
 }
 
-.player-row-diamont{
+.player-row-diamont {
     flex: 1;
     text-align: right;
 }
@@ -54,17 +54,16 @@
 .game-board {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Crée une grille avec 4 colonnes de taille égale */
-    grid-template-rows:  min-content;
+    grid-template-rows: min-content;
     grid-gap: var(--spacing-s);
-    padding:  var(--spacing-s);
+    padding: var(--spacing-s);
     background-color: #f5f5f5;
     overflow-y: auto;
 }
 
-.game-board-padding{
+.game-board-padding {
     background-color: #f5f5f5;
 }
-
 
 .game-page > .game-footer {
     display: flex;
@@ -80,7 +79,7 @@
     color: white;
     border: none;
     cursor: pointer;
-    font-family:  'Lato', sans-serif;
+    font-family: 'Lato', sans-serif;
     padding: var(--spacing-s) var(--spacing-l);
     border-radius: var(--border-radius);
 }
@@ -94,6 +93,6 @@
     font-size: 18px;
     color: white;
     border: none;
-    font-family:  'Lato', sans-serif;
+    font-family: 'Lato', sans-serif;
     padding: var(--spacing-s) var(--spacing-l);
 }

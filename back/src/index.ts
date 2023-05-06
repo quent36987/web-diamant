@@ -81,7 +81,6 @@ io.on('connection', (socket : CustomSocket) => {
 
         if (room) {
             socket.emit('room-update', room.getCompact());
-            console.log(`${socket.username} has joined room ${room.getId()}`);
         }
     });
 

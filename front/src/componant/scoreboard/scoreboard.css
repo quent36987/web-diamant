@@ -1,46 +1,45 @@
 .scoreboard-popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
 }
 
 .scoreboard-popup-content > .player-list {
-  padding: 10px 20px;
-  overflow-y: auto;
+    padding: 10px 20px;
+    overflow-y: auto;
 }
 
 .player-row {
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'Courier New', Courier, monospace; /* Police "scoreboard" */
-  font-size: 18px; /* Taille de la police plus grande */
-  border-bottom: 1px solid #ccc; /* Bordure entre les joueurs */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace; /* Police "scoreboard" */
+    font-size: 18px; /* Taille de la police plus grande */
+    border-bottom: 1px solid #ccc; /* Bordure entre les joueurs */
 }
 
 .scoreboard-popup-content {
-  background-color: #222;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  color: white;
-  font-family: 'Arial', sans-serif;
-  max-width: 90vw;
-  min-width: 75vw;
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+    font-family: 'Arial', sans-serif;
+    max-width: 90vw;
+    min-width: 75vw;
 }
 
-.scoreboard-subtitle{
-  text-align: center;
+.scoreboard-subtitle {
+    text-align: center;
 }
 
 h2 {
-  margin-top: 0;
+    margin-top: 0;
 }

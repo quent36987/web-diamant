@@ -6,14 +6,12 @@
     height: 100%;
     background-color: #282c34;
     font-family: Arial, sans-serif;
-
 }
 
 .waiting-room-subtitle {
     font-size: 7vw;
     color: white;
     margin-bottom: 20px;
-
 }
 
 .game-code {
@@ -37,14 +35,13 @@
 .start-game-button {
     padding: var(--spacing-s) var(--spacing-m);
     border-radius: var(--spacing-xs);
-    font-family:  'Lato', sans-serif;
+    font-family: 'Lato', sans-serif;
     background-color: #61dafb;
     font-size: 18px;
     color: white;
     border: none;
     cursor: pointer;
 }
-
 
 @keyframes dots {
     0% {
@@ -65,7 +62,6 @@
     display: inline-block;
     animation: dots 1.5s steps(4, end) infinite;
     animation-delay: 1s; /* Ajoutez cette ligne */
-
 }
 
 .dots::after {
@@ -73,5 +69,12 @@
     animation: dots 1.5s steps(4, end) infinite;
 }
 
-
-
+.rule-button{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: white;
+    font-family: 'Satisfy', cursive;
+    margin: var(--spacing-s);
+    font-size: 1.2rem;
+}

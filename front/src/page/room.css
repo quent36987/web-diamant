@@ -15,13 +15,12 @@
     animation: fadeIn 1s ease-in-out;
 }
 
-.create-game-button{
+.create-game-button {
     margin-bottom: 20px;
 }
 
 .create-game-button,
 .join-game-button {
-
     background-color: #61dafb;
     font-size: 18px;
     color: white;
@@ -30,7 +29,7 @@
 
     animation: fadeIn 1s ease-in-out 0.5s;
     animation-fill-mode: both;
-    font-family:  'Lato', sans-serif;
+    font-family: 'Lato', sans-serif;
     padding: var(--spacing-s) var(--spacing-m);
     border-radius: var(--spacing-xs);
 }
@@ -48,12 +47,11 @@
     width: 80px;
     font-size: 18px;
     margin-right: 10px;
-    font-family:  'Lato', sans-serif;
+    font-family: 'Lato', sans-serif;
     animation: fadeIn 1s ease-in-out 0.5s;
     padding: var(--spacing-s) var(--spacing-m);
     border-radius: var(--spacing-xs);
 }
-
 
 @keyframes fadeIn {
     from {

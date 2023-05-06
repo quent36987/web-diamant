@@ -21,16 +21,16 @@ export const ToastProvider = ({ children }): JSX.Element => {
 
     const closeFirst = (): void => {
         setToasts((currentToasts) => currentToasts.slice(1));
-    }
+    };
 
     const contextValue = useMemo(() => ({ open, closeFirst }), []);
 
     return (
         <ToastContext.Provider value={contextValue}>
             <div className="toasts-wrapper" onClick={closeFirst}>
-                {toasts.length > 0 &&
+                {toasts.length > 0 && (
                     <Toast key={toasts[0].id} alert={toasts[0]} close={() => close(toasts[0].id)} />
-                }
+                )}
             </div>
             {children}
         </ToastContext.Provider>

@@ -3,7 +3,7 @@ import { EAction, ECardType, RoundType } from './enum';
 export interface ICard {
     id: number;
     type: ECardType;
-    value: number
+    value: number;
 
     valuePerPlayer: number;
     valueLeft: number;

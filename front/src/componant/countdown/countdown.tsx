@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import "./countdown.css";
-
+import React, { useState, useEffect } from 'react';
+import './countdown.css';
 
 interface IProps {
     count: number;
@@ -15,8 +14,7 @@ function Countdown(props: IProps) {
     }, [props.count, props.launch]);
 
     useEffect(() => {
-
-        if(seconds > 0){
+        if (seconds > 0) {
             const interval = setInterval(() => {
                 setSeconds((prevSeconds) => prevSeconds - 1);
             }, 1000);
@@ -27,7 +25,7 @@ function Countdown(props: IProps) {
 
     const formatSeconds = () => {
         const remainingSeconds = seconds % 60;
-        return `${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+        return `${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     };
 
     return (

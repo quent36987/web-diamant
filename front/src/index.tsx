@@ -8,14 +8,9 @@ const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 
 root.render(
-
-        <Context>
-
+    <Context>
         <Application />
-
-            </Context>
-
-
+    </Context>
 );
 
 ReportWebVitals();

@@ -11,7 +11,6 @@ import puitsPng from '../assets/puits.png';
 import minePng from '../assets/mine_diamants.png';
 import diamantPng from '../assets/diamant.png';
 
-
 function getCaveImage() {
     return cavePng;
 }
@@ -42,10 +41,10 @@ function getDangerImage(value: number) {
         case 3:
             return pikePng;
         case 4:
-            return  firePng;
+            return firePng;
         case 5:
             return eboulementPng;
     }
 }
 
-export { getImage, getDangerImage, getCaveImage,getDiamantImage}
+export { getImage, getDangerImage, getCaveImage, getDiamantImage };
