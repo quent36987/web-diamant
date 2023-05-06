@@ -38,9 +38,10 @@
         "react-scripts": "^5.0.1",
         "react-swipeable-views-react-18-fix": "^0.14.1",
         "socket.io-client": "^4.6.1",
-        "web-vitals": "^3.3.1"
+        "web-vitals": "^3.3.1",
+        "typescript": "^5.0.4"
     },
     "devDependencies": {
-        "typescript": "^5.0.4"
+
     }
 }
