@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { AppState } from '../componant/Context';
-import { useNavigate, useParams } from 'react-router-dom';
-import './game.css';
-import { ICard, IGame, IPlayer } from '../interface/interface';
-import { EAction, ECardType, RoundType } from '../interface/enum';
 import GamePage from './gamePage';
-import { emit } from '../utils/socket';
-import { ScoreboardPopup } from '../componant/scoreboard/scoreboard';
-import { path } from '../constant/router';
+import React, { useState, useEffect } from 'react';
+import { IGame, IPlayer } from '../../interface/interface';
+import { AppState } from '../../componant/Context';
+import { EAction, RoundType } from '../../interface/enum';
+import { ScoreboardPopup } from '../../componant/scoreboard/scoreboard';
+import { emit } from '../../utils/socket';
+import { path } from '../../constant/router';
+import { useNavigate, useParams } from 'react-router-dom';
+import { debugLog } from '../../utils/logger';
 
 function Game() {
     const [game, setGame] = useState<IGame>(null);
@@ -39,20 +39,16 @@ function Game() {
         const nextRoundStart = new Date(game.nextRoundStart);
         const diff = nextRoundStart.getTime() - now.getTime();
         const seconds = Math.floor(diff / 1000);
+
         setClock(seconds);
         setLaunchClock((val) => !val);
-
         setPlayer(game.players.find((player) => player.socketId === socket.id));
     }, [game]);
 
     useEffect(() => {
         if (game == null) return;
 
-        if (game.roundType === RoundType.START && game.caveCount > 0) {
-            setShowScoreboard(true);
-        }
-
-        if (game.roundType === RoundType.FINISH) {
+        if ((game.roundType === RoundType.START && game.caveCount > 0) || game.roundType === RoundType.FINISH) {
             setShowScoreboard(true);
         }
     }, [game?.roundType]);
@@ -63,12 +59,12 @@ function Game() {
         }
 
         socket.on('game-update', (newGame: IGame) => {
-            console.log('game-update', newGame);
+            debugLog('game-update', newGame);
             setGame(newGame);
         });
 
         if (params.id) {
-            emit(socket,'game-info', params.id);
+            emit(socket, 'game-info', params.id);
         }
     }, [params.id]);
 

@@ -2,9 +2,9 @@ import express from 'express';
 import http from "http";
 import session from 'express-session';
 import { Server, Socket } from "socket.io";
-import {Room} from "./room";
+import {Room} from "./class/room";
 import listenGame from "./gamesocket";
-import {Game} from "./game";
+import {Game} from "./class/game";
 //cors
 import cors from 'cors';
 
@@ -52,22 +52,22 @@ io.on('connection', (socket : CustomSocket) => {
         });
 
         rooms.push(room);
-        socket.join(room.getId());
-        socket.emit('join-room-success', room.getId());
-        console.log(`${socket.username} has joined room ${room.getId()}`);
+        socket.join(room.id);
+        socket.emit('join-room-success', room.id);
+        console.log(`${socket.username} has joined room ${room.id}`);
     });
 
     socket.on('join-room', (roomId : string) => {
         console.log(`${socket.username} has joined room ${roomId}`);
 
-        const room = rooms.find((r) => r.getId() === roomId);
+        const room = rooms.find((r) => r.id === roomId);
 
         if (room) {
             room.addPlayer({socket});
-            socket.join(room.getId());
-            socket.emit('join-room-success', room.getId());
-            socket.to(room.getId()).emit('room-update', room.getCompact());
-            console.log(`${socket.username} has joined room ${room.getId()}`);
+            socket.join(room.id);
+            socket.emit('join-room-success', room.id);
+            socket.to(room.id).emit('room-update', room.getCompact());
+            console.log(`${socket.username} has joined room ${room.id}`);
         }
         else {
             console.log(`${socket.username} has failed to join room ${roomId}`)
@@ -77,7 +77,7 @@ io.on('connection', (socket : CustomSocket) => {
     socket.on('room-info', (roomId) => {
         console.log(`${socket.username} has requested info for room ${roomId}`);
 
-        const room = rooms.find((r) => r.getId() === roomId);
+        const room = rooms.find((r) => r.id === roomId);
 
         if (room) {
             socket.emit('room-update', room.getCompact());
@@ -87,17 +87,26 @@ io.on('connection', (socket : CustomSocket) => {
     socket.on('start-game', (roomId) => {
         console.log(`${socket.username} has started game in room ${roomId}`);
 
-        const room = rooms.find((r) => r.getId() === roomId);
+        const room = rooms.find((r) => r.id === roomId);
 
         if (room && room.owner.socket.id === socket.id) {
-            io.to(room.getId()).emit('start-game-success', room.getId());
-            console.log(`${socket.username} has started game in room ${room.getId()}`);
+            console.log(`${socket.username} has started game in room ${room.id}`);
 
-            const game = new Game(room.getId(), room.players, io);
+            const game = new Game(room.id, room.users, io);
+
+            //if game already exists, change it
+            while(games.findIndex((g) => g.id === game.id) !== -1) {
+                game.id = Math.floor(Math.random() * 1000000).toString();
+            }
+
             games.push(game);
 
-            room.players.forEach((player) => {
-                listenGame(io, player.socket, game);
+            io.to(room.id).emit('start-game-success', game.id);
+
+            room.users.forEach((user) => {
+                listenGame(io, user.socket, game);
+                user.socket.leave(room.id);
+                user.socket.join(game.id);
             });
 
         }
@@ -106,12 +115,12 @@ io.on('connection', (socket : CustomSocket) => {
     socket.on('disconnect', () => {
         console.log(`${socket.username} has left the server`);
 
-        const player_rooms = rooms.filter((r) => r.getPlayers().find((p) => p.socket.id === socket.id));
+        const player_rooms = rooms.filter((r) => r.users.find((p) => p.socket.id === socket.id));
 
         player_rooms.forEach((room) => {
             room.removePlayer({socket});
-            socket.to(room.getId()).emit('room-update', room.getCompact());
-            console.log(`${socket.username} has left room ${room.getId()}`);
+            socket.to(room.id).emit('room-update', room.getCompact());
+            console.log(`${socket.username} has left room ${room.id}`);
         });
 
         const player_games = games.filter((g) => g.players.find((p) => p.socketId === socket.id));
@@ -123,7 +132,7 @@ io.on('connection', (socket : CustomSocket) => {
 
         // suprimer les rooms vides
         rooms.forEach((room) => {
-            if (room.getPlayersCount() === 0) {
+            if (room.playersCount === 0) {
                 rooms.splice(rooms.indexOf(room), 1);
             }
         });

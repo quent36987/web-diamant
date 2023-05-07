@@ -1,10 +1,10 @@
 // see people in the room
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { AppState } from '../componant/Context';
+import { AppState } from '../../componant/Context';
 import './waiting-room.css';
-import { path } from '../constant/router';
-import { emit } from '../utils/socket';
+import { path } from '../../constant/router';
+import { emit } from '../../utils/socket';
 
 interface IRoom {
     players: string[];
@@ -28,7 +28,8 @@ function WaitingRoom() {
     }, [socket]);
 
     useEffect(() => {
-        // {room : JSON.stringify(room)}
+        if (socket === null) return;
+
         socket.on('room-update', (room: IRoom) => {
             setRoom(room);
             setIsCreator(room.owner === socket.id);
@@ -40,11 +41,9 @@ function WaitingRoom() {
         });
 
         if (params.id) {
-            emit(socket,'room-info', params.id);
+            emit(socket, 'room-info', params.id);
         }
     }, [params.id]);
-
-
 
     return (
         <div className="waiting-room">
@@ -52,13 +51,16 @@ function WaitingRoom() {
                 Attente d'autres joueurs
                 <span className="dots"></span>
             </h2>
+
             <p className="game-code">Code de la partie : {params?.id ?? 'xxxx'}</p>
+
             <div className="player-list">
                 <h3>Joueurs :</h3>
                 <ul>
                     {room && room.players.map((player, index) => <li key={index}>{player}</li>)}
                 </ul>
             </div>
+
             {isCreator && (
                 <button className="start-game-button" onClick={handleStartGame}>
                     Lancer la partie

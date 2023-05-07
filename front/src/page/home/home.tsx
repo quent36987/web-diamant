@@ -1,11 +1,12 @@
 // Home page to set the username
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppState } from '../componant/Context';
-import { emit } from '../utils/socket';
+import { AppState } from '../../componant/Context';
+import { emit } from '../../utils/socket';
 import './home.css';
-import { path } from '../constant/router';
+import { path } from '../../constant/router';
 import { useSpring, animated, config } from 'react-spring';
+import { warnLog } from '../../utils/logger';
 
 const AnimatedLetter = ({ letter }) => {
     const animation = useSpring({
@@ -62,7 +63,7 @@ function Home() {
         });
 
         socket.on('disconnect', () => {
-            console.log('disconnected');
+            warnLog('Socket disconnected')
             navigate(path.home);
         });
     }, [socket]);
@@ -71,8 +72,8 @@ function Home() {
 
     return (
         <div className="main-page">
-            {/*<h1 className="main-page-title">DIAMANT</h1>*/}
             <AnimatedTitle />
+
             <input
                 className="username-input"
                 type="text"

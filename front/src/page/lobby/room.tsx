@@ -1,10 +1,10 @@
 // FIXME: Lobby pluotto room
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppState } from '../componant/Context';
+import { AppState } from '../../componant/Context';
 import './room.css';
-import { path } from '../constant/router';
-import { emit } from '../utils/socket';
+import { path } from '../../constant/router';
+import { emit } from '../../utils/socket';
 
 function Room() {
     const [room, setRoom] = useState('');
@@ -24,17 +24,17 @@ function Room() {
     };
 
     useEffect(() => {
-        if (socket === null)
-            navigate(path.home);
+        if (socket === null) navigate(path.home);
     }, [socket]);
 
     useEffect(() => {
+        if (socket === null) return;
+
         socket.on('join-room-success', (id) => {
             console.log('Joined room successfully!');
             navigate(`${path.waiting_room}/${id}`);
         });
     }, [socket]);
-
 
     return (
         <div className="game-lobby">
@@ -54,10 +54,10 @@ function Room() {
                 <button className="join-game-button" onClick={handleJoinRoom}>
                     Rejoindre
                 </button>
+            </div>
 
-                <div className="rule-button" onClick={() => navigate(path.rules)}>
-                    {'voir les règles ->'}
-                </div>
+            <div className="rule-button" onClick={() => navigate(path.rules)}>
+                {'voir les règles ->'}
             </div>
         </div>
     );

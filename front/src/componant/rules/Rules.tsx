@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import SwipeableViews from 'react-swipeable-views-react-18-fix';
 import './rules.css';
-import { EAction, ECardType } from '../../interface/enum';
+import {  ECardType } from '../../interface/enum';
 import { Cards } from '../cards/cards';
 import { getDangerImage, getDiamantImage } from '../../utils/cardImage';
-import { ICard, IPlayer } from '../../interface/interface';
+import { ICard} from '../../interface/interface';
 import { useNavigate } from 'react-router-dom';
 
 const Rule1 = () => (
@@ -111,14 +111,14 @@ const CARDS_RULES_6: ICard[] = [
         value: 2,
         valueLeft: 2,
         valuePerPlayer: 1,
-        type: ECardType.FIRSTAID
+        type: ECardType.TREASURE
     },
     {
         id: 1,
         value: 6,
         valueLeft: 6,
         valuePerPlayer: 1,
-        type: ECardType.FIRSTAID
+        type: ECardType.TREASURE
     }
 ];
 
@@ -152,14 +152,14 @@ const CARDS_RULES_7: ICard[] = [
         value: 3,
         valueLeft: 1,
         valuePerPlayer: 1,
-        type: ECardType.SPLITER
+        type: ECardType.RESOURCE
     },
     {
         id: 1,
         value: 6,
         valueLeft: 0,
         valuePerPlayer: 1,
-        type: ECardType.SPLITER
+        type: ECardType.RESOURCE
     }
 ];
 

@@ -23,9 +23,9 @@ function getImage(card: ICard) {
     switch (card.type) {
         case ECardType.DANGER:
             return getDangerImage(card.value);
-        case ECardType.SPLITER:
+        case ECardType.RESOURCE:
             return minePng;
-        case ECardType.FIRSTAID:
+        case ECardType.TREASURE:
             return puitsPng;
         default:
             return cavePng;

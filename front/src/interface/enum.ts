@@ -14,6 +14,6 @@ export enum RoundType {
 
 export enum ECardType {
     DANGER = 'danger',
-    SPLITER = 'spliter',
-    FIRSTAID = 'firstaid'
+    RESOURCE = 'resources',
+    TREASURE = 'treasure'
 }

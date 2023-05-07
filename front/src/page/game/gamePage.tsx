@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './gamePage.css';
-import { Countdown } from '../componant/countdown/countdown';
-import { ICard, IPlayer } from '../interface/interface';
-import { EAction, RoundType } from '../interface/enum';
-import { Cards } from '../componant/cards/cards';
-import { useNavigate } from 'react-router-dom';
-import { path } from '../constant/router';
-import { getDiamantImage } from '../utils/cardImage';
+import { Countdown } from '../../componant/countdown/countdown';
+import { ICard, IPlayer } from '../../interface/interface';
+import { EAction, RoundType } from '../../interface/enum';
+import { Cards } from '../../componant/cards/cards';
+import { getDiamantImage } from '../../utils/cardImage';
 
 interface IProps {
     timer: number;
@@ -93,7 +91,7 @@ const GamePage = ({
                     <div className="game-footer-message">{message()}</div>
                 ) : (
                     <>
-                        {action === EAction.NONE ? (
+                        {action === EAction.NONE && !player.isInHome? (
                             <>
                                 <button
                                     className="stay-button"
@@ -105,9 +103,8 @@ const GamePage = ({
                                     onClick={() => handleActionWrapper(EAction.LEAVE)}>
                                     Partir
                                 </button>
-                                )
                             </>
-                        ) : null}
+                        ) : " "}
                     </>
                 )}
             </footer>

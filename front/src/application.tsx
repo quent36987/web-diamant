@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
-import { Home } from './page/home';
-import { Room } from './page/room';
-import { WaitingRoom } from './page/waiting-room';
-import Game from './page/app';
+import { Home } from './page/home/home';
+import { Room } from './page/lobby/room';
+import { WaitingRoom } from './page/waiting-room/waiting-room';
+import Game from './page/game/app';
 import { path } from './constant/router';
 import { RulesCarousel } from './componant/rules/Rules';
 

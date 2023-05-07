@@ -1,5 +1,5 @@
 import React from 'react';
-import { getCaveImage, getDangerImage, getDiamantImage, getImage } from '../../utils/cardImage';
+import { getCaveImage, getImage } from '../../utils/cardImage';
 import { ICard } from '../../interface/interface';
 import './card.css';
 import { ECardType } from '../../interface/enum';
