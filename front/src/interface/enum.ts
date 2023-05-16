@@ -14,6 +14,6 @@ export enum RoundType {
 
 export enum ECardType {
     DANGER = 'danger',
-    RESOURCE = 'resources',
+    RESOURCE = "resource",
     TREASURE = 'treasure'
 }

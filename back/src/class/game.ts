@@ -6,7 +6,6 @@ import {initCard_shuffle} from "../utils/initCard";
 import {ROUND_DURATION} from "../interface/constant";
 import {IUser} from "../interface/interface";
 
-
 export class Game {
     private readonly _io: Server;
     private _id: string;
@@ -195,14 +194,14 @@ export class Game {
 
     playCard(){
         const playerWhoLeave = this.getPlayerLeave();
+        const playerWhoLeaveCount = playerWhoLeave.length;
+
+        let count = 0;
+        this.cardsInGame.forEach((c) => {
+            count += c.getMoneyPerPlayer(playerWhoLeaveCount);
+        });
 
         playerWhoLeave.forEach((p) => {
-
-            let count = 0;
-            this.cardsInGame.forEach((c) => {
-                count += c.getMoneyPerPlayer(playerWhoLeave.length);
-            });
-
             p.addMoney(count);
 
             p.returnHome();
